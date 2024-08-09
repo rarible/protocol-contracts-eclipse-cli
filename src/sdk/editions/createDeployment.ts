@@ -15,7 +15,7 @@ import { IExecutorParams } from "../../cli/IExecutorParams";
 import { sendSignedTransaction } from "../tx_utils";
 import { getHashlistPda } from "../../anchor/editions/pdas/getHashlistPda";
 
-export const PROGRAM_ID_GROUP_EXTENSIONS = new PublicKey("TGRPp2mDGxSyH3We9hH8pwcmhajtszPAvWjVdVgsPa5");
+export const PROGRAM_ID_GROUP_EXTENSIONS = new PublicKey("5hx15GaPPqsYA61v6QpcGPpo125v7rfvEfZQ4dJErG5V");
 
 export interface IInitializeLaunch {
   symbol: string;
