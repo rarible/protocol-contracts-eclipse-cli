@@ -5,6 +5,7 @@ import {
   Transaction,
   TransactionInstruction,
   PublicKey,
+  ComputeBudgetProgram,
 } from "@solana/web3.js";
 import BN from "bn.js";
 
@@ -18,6 +19,12 @@ import { getProgramInstanceEditionsControls } from "anchor/controls/getProgramIn
 import { getEditionsControlsPda } from "anchor/controls/pdas/getEditionsControlsPda";
 import { PROGRAM_ID_GROUP_EXTENSIONS } from "sdk/editions/createDeployment";
 
+
+export interface CreatorWithShare {
+  address: string;
+  share: number;
+}
+
 export interface IInitializeLaunch {
   symbol: string;
   jsonUrl: string;
@@ -25,6 +32,8 @@ export interface IInitializeLaunch {
   name: string;
   maxMintsPerWallet: number; // set to 0 for unlimited
   maxNumberOfTokens: number; // set to 0 for unlimited
+  royaltyBasisPoints: number; // how many in bps to charge
+  creators: CreatorWithShare[]; // split between creators
 }
 
 export const createDeployment = async ({
@@ -38,7 +47,9 @@ export const createDeployment = async ({
     treasury,
     maxMintsPerWallet,
     maxNumberOfTokens,
-    name
+    name,
+    royaltyBasisPoints,
+    creators
   } = params;
 
   const editionsControlsProgram = getProgramInstanceEditionsControls(connection);
@@ -67,9 +78,12 @@ export const createDeployment = async ({
           cosignerProgramId: null,
           treasury: new PublicKey(treasury),
           maxMintsPerWallet: new BN(maxMintsPerWallet),
+          royaltyBasisPoints,
+          creators: creators.map(c => ({ address: new PublicKey(c.address), share: c.share })),
+          extraMeta: [{"field": "f1", "value": "v1"}, {"field": "f2", "value": "v2"}]
         }
       )
-      .accounts({
+      .accountsStrict({
         editionsControls,
         editionsDeployment: editions,
         hashlist,
@@ -86,8 +100,11 @@ export const createDeployment = async ({
       .instruction()
   );
 
+  const modifyComputeUnits = ComputeBudgetProgram.setComputeUnitLimit({ 
+    units: 800000 
+  });
   // transaction boilerplate - ignore for now
-  const tx = new Transaction().add(...instructions);
+  const tx = new Transaction().add(modifyComputeUnits).add(...instructions);
   tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
   tx.feePayer = wallet.publicKey;
   tx.sign(groupMint, group);
