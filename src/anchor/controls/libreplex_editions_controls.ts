@@ -1,5 +1,5 @@
 export type LibreplexEditionsControls = {
-  "address": "AkVEpM9cAvdgaU9Q6XrnoQcrFGXyNWSSfkWPokqaS246",
+  "address": "Ey4RSJfxsKrRfKdnetiFrhZuQU9XkQASjkjdFSxep1yL",
   "metadata": {
     "name": "libreplexEditionsControls",
     "version": "0.2.1",
@@ -45,7 +45,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CcAQiZw4YpwzDj15dqMfeDvxjpBZPjhjuzjUMX4JmZPL"
+          "address": "7EReqCaHtmsHVajsoUioVVK7AJKZpdWN4Pszh5DbWooS"
         }
       ],
       "args": [
@@ -146,7 +146,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CcAQiZw4YpwzDj15dqMfeDvxjpBZPjhjuzjUMX4JmZPL"
+          "address": "7EReqCaHtmsHVajsoUioVVK7AJKZpdWN4Pszh5DbWooS"
         }
       ],
       "args": [
@@ -323,6 +323,10 @@ export type LibreplexEditionsControls = {
           "writable": true
         },
         {
+          "name": "groupMint",
+          "writable": true
+        },
+        {
           "name": "tokenAccount",
           "writable": true
         },
@@ -347,7 +351,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CcAQiZw4YpwzDj15dqMfeDvxjpBZPjhjuzjUMX4JmZPL"
+          "address": "7EReqCaHtmsHVajsoUioVVK7AJKZpdWN4Pszh5DbWooS"
         }
       ],
       "args": [
@@ -632,16 +636,10 @@ export type LibreplexEditionsControls = {
             }
           },
           {
-            "name": "royaltyBasisPoints",
-            "type": "u16"
-          },
-          {
-            "name": "creators",
+            "name": "royalties",
             "type": {
-              "vec": {
-                "defined": {
-                  "name": "creatorWithShare"
-                }
+              "defined": {
+                "name": "updateRoyaltiesArgs"
               }
             }
           },
@@ -654,6 +652,14 @@ export type LibreplexEditionsControls = {
                 }
               }
             }
+          },
+          {
+            "name": "itemBaseUri",
+            "type": "string"
+          },
+          {
+            "name": "itemName",
+            "type": "string"
           }
         ]
       }
@@ -771,6 +777,28 @@ export type LibreplexEditionsControls = {
                 "u8",
                 200
               ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "updateRoyaltiesArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "royaltyBasisPoints",
+            "type": "u16"
+          },
+          {
+            "name": "creators",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "creatorWithShare"
+                }
+              }
             }
           }
         ]
@@ -781,7 +809,7 @@ export type LibreplexEditionsControls = {
 
 
 export const IDL: LibreplexEditionsControls = {
-  "address": "AkVEpM9cAvdgaU9Q6XrnoQcrFGXyNWSSfkWPokqaS246",
+  "address": "Ey4RSJfxsKrRfKdnetiFrhZuQU9XkQASjkjdFSxep1yL",
   "metadata": {
     "name": "libreplexEditionsControls",
     "version": "0.2.1",
@@ -827,7 +855,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CcAQiZw4YpwzDj15dqMfeDvxjpBZPjhjuzjUMX4JmZPL"
+          "address": "7EReqCaHtmsHVajsoUioVVK7AJKZpdWN4Pszh5DbWooS"
         }
       ],
       "args": [
@@ -928,7 +956,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CcAQiZw4YpwzDj15dqMfeDvxjpBZPjhjuzjUMX4JmZPL"
+          "address": "7EReqCaHtmsHVajsoUioVVK7AJKZpdWN4Pszh5DbWooS"
         }
       ],
       "args": [
@@ -1105,6 +1133,10 @@ export const IDL: LibreplexEditionsControls = {
           "writable": true
         },
         {
+          "name": "groupMint",
+          "writable": true
+        },
+        {
           "name": "tokenAccount",
           "writable": true
         },
@@ -1129,7 +1161,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CcAQiZw4YpwzDj15dqMfeDvxjpBZPjhjuzjUMX4JmZPL"
+          "address": "7EReqCaHtmsHVajsoUioVVK7AJKZpdWN4Pszh5DbWooS"
         }
       ],
       "args": [
@@ -1414,16 +1446,10 @@ export const IDL: LibreplexEditionsControls = {
             }
           },
           {
-            "name": "royaltyBasisPoints",
-            "type": "u16"
-          },
-          {
-            "name": "creators",
+            "name": "royalties",
             "type": {
-              "vec": {
-                "defined": {
-                  "name": "creatorWithShare"
-                }
+              "defined": {
+                "name": "updateRoyaltiesArgs"
               }
             }
           },
@@ -1436,6 +1462,14 @@ export const IDL: LibreplexEditionsControls = {
                 }
               }
             }
+          },
+          {
+            "name": "itemBaseUri",
+            "type": "string"
+          },
+          {
+            "name": "itemName",
+            "type": "string"
           }
         ]
       }
@@ -1553,6 +1587,28 @@ export const IDL: LibreplexEditionsControls = {
                 "u8",
                 200
               ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "updateRoyaltiesArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "royaltyBasisPoints",
+            "type": "u16"
+          },
+          {
+            "name": "creators",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "creatorWithShare"
+                }
+              }
             }
           }
         ]

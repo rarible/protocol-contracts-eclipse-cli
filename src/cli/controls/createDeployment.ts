@@ -1,4 +1,3 @@
-export {};
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { createDeployment } from "../../sdk/controls/createControlDeployment";
 import { LibreWallet } from "../../anchor/LibreWallet";
@@ -13,13 +12,17 @@ cli
   .description("Create an editions account with controls")
   .requiredOption("-k, --keypairPath <keypairPath>", "Path to the keypair file")
   .requiredOption("-s, --symbol <symbol>", "Symbol of the edition")
-  .requiredOption("-n, --name <name>", "Name of the edition (can include a template string: {})")
-  .requiredOption("-j, --jsonUrl <jsonUrl>", "JSON URL (can include a template string: {})")
+  .requiredOption("-n, --name <name>", "Name of the edition")
+  .requiredOption("-j, --jsonUrl <jsonUrl>", "JSON URL for metadata")
   .requiredOption("-t, --treasuryWallet <treasuryWallet>", "Public key of the treasury wallet")
   .requiredOption("--maxMintsPerWallet <maxMintsPerWallet>", "Max mints per wallet, 0 for unlimited")
   .requiredOption("--maxNumberOfTokens <maxNumberOfTokens>", "Max number of tokens, 0 for unlimited")
-  .requiredOption("--creators <creators...>", "List of creators in the format '<address>:<share>' (e.g., 'creator1:50 creator2:50')")
+  .requiredOption("--creators <creators...>", "List of creators in the format '<address>:<share>'")
   .requiredOption("--royaltyBasisPoints <royaltyBasisPoints>", "Royalty basis points (1000 = 10%)")
+  .option("--extraMeta <extraMeta...>", "Extra metadata in the format '<field>:<value>'")
+  .requiredOption("--itemBaseUri <itemBaseUri>", "Base URI for the item metadata")
+  .requiredOption("--itemName <itemName>", "Name for each item in the edition")
+  .option("--cosignerProgramId <cosignerProgramId>", "Optional cosigner program ID (PublicKey)")
   .requiredOption("-r, --rpc <rpc>", "RPC endpoint")
   .parse(process.argv);
 
@@ -44,6 +47,26 @@ const opts = cli.opts();
       return { address: new PublicKey(address), share: parseInt(share) };
     });
 
+    // Parse extra metadata input
+    const extraMeta = opts.extraMeta
+      ? opts.extraMeta.map((meta: string) => {
+          const [field, value] = meta.split(":");
+          if (!field || !value) {
+            throw new Error(`Invalid extraMeta input: ${meta}. Expected format: '<field>:<value>'`);
+          }
+          return { field, value };
+        })
+      : [];
+
+    // Parse cosigner program ID (if provided)
+    const cosignerProgramId = opts.cosignerProgramId ? new PublicKey(opts.cosignerProgramId) : null;
+
+    // Prepare the royalties object
+    const royalties = {
+      royaltyBasisPoints: +opts.royaltyBasisPoints, // Note the camelCase field name
+      creators,
+    };
+
     // Create the deployment
     const { editions, editionsControls } = await createDeployment({
       wallet,
@@ -54,8 +77,11 @@ const opts = cli.opts();
         treasury: opts.treasuryWallet,
         maxMintsPerWallet: +opts.maxMintsPerWallet,
         maxNumberOfTokens: +opts.maxNumberOfTokens,
-        royaltyBasisPoints: +opts.royaltyBasisPoints,
-        creators,
+        royalties,
+        extraMeta,
+        itemBaseUri: opts.itemBaseUri,
+        itemName: opts.itemName,
+        cosignerProgramId,
       },
       connection,
     });
