@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/libreplex_editions.json`.
  */
 export type LibreplexEditions = {
-  "address": "7EReqCaHtmsHVajsoUioVVK7AJKZpdWN4Pszh5DbWooS",
+  "address": "Fb9o5V3ZrvSVAfoAZ3P2cRyUCmSPzHdKCf7FzGv42AGD",
   "metadata": {
     "name": "libreplexEditions",
     "version": "0.2.1",
@@ -496,7 +496,45 @@ export type LibreplexEditions = {
           "signer": true
         },
         {
-          "name": "authority",
+          "name": "editionsDeployment",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  100,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110,
+                  115,
+                  95,
+                  100,
+                  101,
+                  112,
+                  108,
+                  111,
+                  121,
+                  109,
+                  101,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "editions_deployment.symbol",
+                "account": "editionsDeployment"
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
           "signer": true
         },
         {
@@ -540,17 +578,54 @@ export type LibreplexEditions = {
       ],
       "accounts": [
         {
+          "name": "editionsDeployment",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  100,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110,
+                  115,
+                  95,
+                  100,
+                  101,
+                  112,
+                  108,
+                  111,
+                  121,
+                  109,
+                  101,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "editions_deployment.symbol",
+                "account": "editionsDeployment"
+              }
+            ]
+          }
+        },
+        {
           "name": "payer",
           "writable": true,
           "signer": true
         },
         {
-          "name": "authority",
+          "name": "signer",
+          "writable": true,
           "signer": true
         },
         {
-          "name": "mint",
-          "writable": true
+          "name": "mint"
         },
         {
           "name": "systemProgram",
@@ -887,7 +962,7 @@ export type LibreplexEditions = {
 
 
 export const IDL: LibreplexEditions = {
-  "address": "7EReqCaHtmsHVajsoUioVVK7AJKZpdWN4Pszh5DbWooS",
+  "address": "Fb9o5V3ZrvSVAfoAZ3P2cRyUCmSPzHdKCf7FzGv42AGD",
   "metadata": {
     "name": "libreplexEditions",
     "version": "0.2.1",
@@ -1378,7 +1453,45 @@ export const IDL: LibreplexEditions = {
           "signer": true
         },
         {
-          "name": "authority",
+          "name": "editionsDeployment",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  100,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110,
+                  115,
+                  95,
+                  100,
+                  101,
+                  112,
+                  108,
+                  111,
+                  121,
+                  109,
+                  101,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "editions_deployment.symbol",
+                "account": "editionsDeployment"
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
           "signer": true
         },
         {
@@ -1422,17 +1535,54 @@ export const IDL: LibreplexEditions = {
       ],
       "accounts": [
         {
+          "name": "editionsDeployment",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  100,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110,
+                  115,
+                  95,
+                  100,
+                  101,
+                  112,
+                  108,
+                  111,
+                  121,
+                  109,
+                  101,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "editions_deployment.symbol",
+                "account": "editionsDeployment"
+              }
+            ]
+          }
+        },
+        {
           "name": "payer",
           "writable": true,
           "signer": true
         },
         {
-          "name": "authority",
+          "name": "signer",
+          "writable": true,
           "signer": true
         },
         {
-          "name": "mint",
-          "writable": true
+          "name": "mint"
         },
         {
           "name": "systemProgram",
