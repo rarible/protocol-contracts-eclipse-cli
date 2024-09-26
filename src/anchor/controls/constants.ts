@@ -1,1 +1,1 @@
-export const PROGRAM_ID_CONTROLS = "AkVEpM9cAvdgaU9Q6XrnoQcrFGXyNWSSfkWPokqaS246";
+export const PROGRAM_ID_CONTROLS = "6nmj6UVQgjZseRruceU1ZJG2dhfCDrcxKG2qhB2x9QSG";

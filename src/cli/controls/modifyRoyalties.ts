@@ -1,0 +1,56 @@
+export {};
+import { Connection, Keypair, PublicKey } from "@solana/web3.js";
+import { Command } from "commander";
+import fs from "fs";
+import { LibreWallet } from "../../anchor/LibreWallet";
+import { modifyRoyalties } from "../../sdk/controls/modifyRoyalties"; // Assuming your modifyRoyalties script is located here
+
+const cli = new Command();
+
+cli
+  .version("1.0.0")
+  .description("Modify royalties for a specific NFT edition deployment")
+  .requiredOption("-k, --keypairPath <keypairPath>", "Path to the keypair file")
+  .requiredOption("-r, --rpc <rpc>", "RPC endpoint")
+  .requiredOption("-d, --deploymentId <deploymentId>", "ID of the deployment to update royalties")
+  .requiredOption("--royaltyBasisPoints <royaltyBasisPoints>", "New royalty basis points (e.g., 500 for 5%)")
+  .requiredOption(
+    "--creators <creators>",
+    "List of creators and their shares in the format 'address:share,address:share' (e.g., '8YkPQFLXq23z7Xz1W4oS:50,FzPQA3drtY9xZGR:50')"
+  )
+  .parse(process.argv);
+
+const opts = cli.opts();
+
+(async () => {
+  const connection = new Connection(opts.rpc);
+
+  // Read the keypair file to create a wallet
+  const keyfile = JSON.parse(fs.readFileSync(opts.keypairPath, "utf8"));
+  const signerKeypair = Keypair.fromSecretKey(new Uint8Array(keyfile));
+
+  // Parse the creators input (address:share pairs)
+  const creators = opts.creators.split(",").map((creator: string) => {
+    const [address, share] = creator.split(":");
+    return { address: new PublicKey(address), share: Number(share) };
+  });
+
+  console.log("Options:", opts);
+
+  try {
+    // Call modifyRoyalties function to update royalties on-chain
+    const { editions } = await modifyRoyalties({
+      wallet: new LibreWallet(signerKeypair),
+      params: {
+        editionsId: opts.deploymentId,
+        royaltyBasisPoints: Number(opts.royaltyBasisPoints),
+        creators,
+      },
+      connection,
+    });
+
+    console.log(`Royalties updated successfully for editions: ${editions}`);
+  } catch (e) {
+    console.error("Error updating royalties:", e);
+  }
+})();
