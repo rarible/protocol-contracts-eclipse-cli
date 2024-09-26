@@ -30,16 +30,12 @@ const opts = cli.opts();
   const deploymentPubkey = new PublicKey(opts.deploymentId);
   try {
     const accountData = await connection.getAccountInfo(deploymentPubkey);
-
     const editionsControls = getEditionsControlsPda(deploymentPubkey);
     const editionProgram = getProgramInstanceEditions(connection);
     if (!accountData) {
       throw Error(`Deployment ${opts.deploymentId} not found`);
     }
-    const deploymentObj = decodeEditions(editionProgram)(
-      accountData.data,
-      deploymentPubkey
-    );
+    const deploymentObj = decodeEditions(editionProgram)(accountData.data, deploymentPubkey);
 
     console.log({
       coreDeployment: {
@@ -55,28 +51,33 @@ const opts = cli.opts();
       },
     });
 
-    const controlsAccountData = await connection.getAccountInfo(
-      editionsControls
-    );
+    const controlsAccountData = await connection.getAccountInfo(editionsControls);
 
     if (!controlsAccountData.data) {
       console.log("Core editions deployment - no controls specified");
     } else {
-      const editionControlsProgram =
-        getProgramInstanceEditionsControls(connection);
+      const editionControlsProgram = getProgramInstanceEditionsControls(connection);
 
-      const editionsControlsObj = decodeEditionsControls(
-        editionControlsProgram
-      )(controlsAccountData.data, editionsControls);
+      const editionsControlsObj = decodeEditionsControls(editionControlsProgram)(
+        controlsAccountData.data,
+        editionsControls
+      );
 
       console.log({
-        phases: editionsControlsObj.item.phases.map((item, idx) => ({
-          phaseIndex: idx,
-          currentMints: Number(item.currentMints),
-          startTime: Number(item.startTime),
-          endTime: Number(item.endTime),
-          priceAmount: Number(item.priceAmount),
-        })),
+        editionsControls: {
+          address: editionsControls.toBase58(),
+          coreDeployment: editionsControlsObj.item.editionsDeployment.toBase58(),
+          creator: editionsControlsObj.item.creator.toBase58(),
+          treasury: editionsControlsObj.item.treasury.toBase58(),
+
+          phases: editionsControlsObj.item.phases.map((item, idx) => ({
+            phaseIndex: idx,
+            currentMints: Number(item.currentMints),
+            startTime: Number(item.startTime),
+            endTime: Number(item.endTime),
+            priceAmount: Number(item.priceAmount),
+          })),
+        },
       });
     }
   } catch (e) {
