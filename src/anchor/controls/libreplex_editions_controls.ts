@@ -1,5 +1,5 @@
 export type LibreplexEditionsControls = {
-  "address": "6nmj6UVQgjZseRruceU1ZJG2dhfCDrcxKG2qhB2x9QSG",
+  "address": "J87ZtbZvSYaBhwwDb4LqCHAh7rAUjkVWiab5AZ7R3TY5",
   "metadata": {
     "name": "libreplexEditionsControls",
     "version": "0.2.1",
@@ -45,7 +45,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "Fb9o5V3ZrvSVAfoAZ3P2cRyUCmSPzHdKCf7FzGv42AGD"
+          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
         }
       ],
       "args": [
@@ -146,7 +146,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "Fb9o5V3ZrvSVAfoAZ3P2cRyUCmSPzHdKCf7FzGv42AGD"
+          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
         }
       ],
       "args": [
@@ -351,7 +351,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "Fb9o5V3ZrvSVAfoAZ3P2cRyUCmSPzHdKCf7FzGv42AGD"
+          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
         }
       ],
       "args": [
@@ -360,6 +360,95 @@ export type LibreplexEditionsControls = {
           "type": {
             "defined": {
               "name": "mintInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modifyPlatformFee",
+      "discriminator": [
+        186,
+        73,
+        229,
+        152,
+        183,
+        174,
+        250,
+        197
+      ],
+      "accounts": [
+        {
+          "name": "editionsDeployment",
+          "writable": true
+        },
+        {
+          "name": "editionsControls",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  100,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110,
+                  115,
+                  95,
+                  99,
+                  111,
+                  110,
+                  116,
+                  114,
+                  111,
+                  108,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "editionsDeployment"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "groupMint",
+          "writable": true
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "libreplexEditionsProgram",
+          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
+        }
+      ],
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "defined": {
+              "name": "updatePlatformFeeArgs"
             }
           }
         }
@@ -440,7 +529,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "Fb9o5V3ZrvSVAfoAZ3P2cRyUCmSPzHdKCf7FzGv42AGD"
+          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
         }
       ],
       "args": [
@@ -749,6 +838,14 @@ export type LibreplexEditionsControls = {
           {
             "name": "itemName",
             "type": "string"
+          },
+          {
+            "name": "platformFee",
+            "type": {
+              "defined": {
+                "name": "updatePlatformFeeArgs"
+              }
+            }
           }
         ]
       }
@@ -867,6 +964,48 @@ export type LibreplexEditionsControls = {
                 200
               ]
             }
+          }
+        ]
+      }
+    },
+    {
+      "name": "platformFeeRecipient",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "address",
+            "type": "pubkey"
+          },
+          {
+            "name": "share",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "updatePlatformFeeArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "platformFeeValue",
+            "type": "u64"
+          },
+          {
+            "name": "recipients",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "platformFeeRecipient"
+                }
+              }
+            }
+          },
+          {
+            "name": "isFeeFlat",
+            "type": "bool"
           }
         ]
       }
@@ -897,8 +1036,9 @@ export type LibreplexEditionsControls = {
 };
 
 
+
 export const IDL: LibreplexEditionsControls = {
-  "address": "6nmj6UVQgjZseRruceU1ZJG2dhfCDrcxKG2qhB2x9QSG",
+  "address": "J87ZtbZvSYaBhwwDb4LqCHAh7rAUjkVWiab5AZ7R3TY5",
   "metadata": {
     "name": "libreplexEditionsControls",
     "version": "0.2.1",
@@ -944,7 +1084,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "Fb9o5V3ZrvSVAfoAZ3P2cRyUCmSPzHdKCf7FzGv42AGD"
+          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
         }
       ],
       "args": [
@@ -1045,7 +1185,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "Fb9o5V3ZrvSVAfoAZ3P2cRyUCmSPzHdKCf7FzGv42AGD"
+          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
         }
       ],
       "args": [
@@ -1250,7 +1390,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "Fb9o5V3ZrvSVAfoAZ3P2cRyUCmSPzHdKCf7FzGv42AGD"
+          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
         }
       ],
       "args": [
@@ -1259,6 +1399,95 @@ export const IDL: LibreplexEditionsControls = {
           "type": {
             "defined": {
               "name": "mintInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modifyPlatformFee",
+      "discriminator": [
+        186,
+        73,
+        229,
+        152,
+        183,
+        174,
+        250,
+        197
+      ],
+      "accounts": [
+        {
+          "name": "editionsDeployment",
+          "writable": true
+        },
+        {
+          "name": "editionsControls",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  100,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110,
+                  115,
+                  95,
+                  99,
+                  111,
+                  110,
+                  116,
+                  114,
+                  111,
+                  108,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "editionsDeployment"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "groupMint",
+          "writable": true
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "libreplexEditionsProgram",
+          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
+        }
+      ],
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "defined": {
+              "name": "updatePlatformFeeArgs"
             }
           }
         }
@@ -1339,7 +1568,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "Fb9o5V3ZrvSVAfoAZ3P2cRyUCmSPzHdKCf7FzGv42AGD"
+          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
         }
       ],
       "args": [
@@ -1648,6 +1877,14 @@ export const IDL: LibreplexEditionsControls = {
           {
             "name": "itemName",
             "type": "string"
+          },
+          {
+            "name": "platformFee",
+            "type": {
+              "defined": {
+                "name": "updatePlatformFeeArgs"
+              }
+            }
           }
         ]
       }
@@ -1766,6 +2003,48 @@ export const IDL: LibreplexEditionsControls = {
                 200
               ]
             }
+          }
+        ]
+      }
+    },
+    {
+      "name": "platformFeeRecipient",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "address",
+            "type": "pubkey"
+          },
+          {
+            "name": "share",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "updatePlatformFeeArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "platformFeeValue",
+            "type": "u64"
+          },
+          {
+            "name": "recipients",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "platformFeeRecipient"
+                }
+              }
+            }
+          },
+          {
+            "name": "isFeeFlat",
+            "type": "bool"
           }
         ]
       }

@@ -7,13 +7,13 @@ KEYPAIR_PATH="$HOME/.config/solana/id.json"
 RPC_URL="https://api.devnet.solana.com"
 
 # ID of the deployment you want to update royalties for
-DEPLOYMENT_ID="Cegwqg7TiVJbgrQtNmmDpwWUED4sS4tbTCSWDbDEC8qj"
+DEPLOYMENT_ID="BvQ6QPwmFk93zwNPBt6LKkKHp6zZLQuZn4iEuNm9mDmr"
 
 # Royalty basis points (e.g., 1000 for 10%)
 ROYALTY_BASIS_POINTS=1100
 
 # Creators and their shares (format: 'address:share,address:share')
-CREATORS="6H7iu5V5q2j3G4hjKj6HGFEdUJGZn7MBXaxCjEHD2A4a:42,7Y7bfS5qE2i4J3hjLs1JKJFRXoJHdF2bCjCzTGbJ3h3K:58"
+CREATORS="6H7iu5V5q2j3G4hjKj6HGFEdUJGZn7MBXaxCjEHD2A4a:100"
 
 # Run the modifyRoyalties.ts script using npx and ts-node
 npx ts-node ./src/cli/controls/modifyRoyalties.ts \

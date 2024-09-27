@@ -34,6 +34,13 @@ export interface UpdateRoyaltiesArgs {
   creators: CreatorWithShare[];
 }
 
+// New interface for platform fee arguments
+export interface UpdatePlatformFeeArgs {
+  platformFeeValue: BN;
+  recipients: CreatorWithShare[];
+  isFeeFlat: boolean;
+}
+
 export interface IInitializeLaunch {
   symbol: string;
   jsonUrl: string;
@@ -42,6 +49,7 @@ export interface IInitializeLaunch {
   maxMintsPerWallet: number; // set to 0 for unlimited
   maxNumberOfTokens: number; // set to 0 for unlimited
   royalties: UpdateRoyaltiesArgs; // royalties info (basis points and creators)
+  platformFee: UpdatePlatformFeeArgs; // platform fee info
   extraMeta: MetadataField[]; // array of extra metadata fields
   itemBaseUri: string; // URI for item base metadata
   itemName: string; // Name for each item
@@ -61,6 +69,7 @@ export const createDeployment = async ({
     maxNumberOfTokens,
     name,
     royalties,
+    platformFee, // Destructure platformFee from params
     extraMeta,
     itemBaseUri,
     itemName,
@@ -81,8 +90,8 @@ export const createDeployment = async ({
   const libreplexEditionsProgram = getProgramInstanceEditions(connection);
   const instructions: TransactionInstruction[] = [];
 
-  // Ensure creators' addresses are PublicKey instances
-  const creatorsWithPublicKeys = royalties.creators.map((creator) => ({
+  // Ensure creators' addresses are PublicKey instances for royalties
+  const royaltyCreatorsWithPublicKeys = royalties.creators.map((creator) => ({
     address: new PublicKey(creator.address),
     share: creator.share,
   }));
@@ -90,10 +99,23 @@ export const createDeployment = async ({
   // Prepare the royalties object with camelCase field names
   const royaltiesArgs = {
     royaltyBasisPoints: royalties.royaltyBasisPoints,
-    creators: creatorsWithPublicKeys,
+    creators: royaltyCreatorsWithPublicKeys,
   };
 
-  // Creates an open editions launch with extra metadata and royalties
+  // Ensure recipients' addresses are PublicKey instances for platform fee
+  const platformFeeRecipientsWithPublicKeys = platformFee.recipients.map((recipient) => ({
+    address: new PublicKey(recipient.address),
+    share: recipient.share,
+  }));
+
+  // Prepare the platform fee object with platformFeeValue as BN
+  const platformFeeArgs = {
+    platformFeeValue: new BN(platformFee.platformFeeValue), // Convert to BN
+    recipients: platformFeeRecipientsWithPublicKeys,
+    isFeeFlat: platformFee.isFeeFlat,
+  };
+
+  // Creates an open editions launch with extra metadata, royalties, and platform fee
   instructions.push(
     await editionsControlsProgram.methods
       .initialiseEditionsControls({
@@ -105,6 +127,7 @@ export const createDeployment = async ({
         offchainUrl: jsonUrl,
         cosignerProgramId: cosignerProgramId ?? null,
         royalties: royaltiesArgs,
+        platformFee: platformFeeArgs, // Pass the platform fee arguments
         extraMeta,
         itemBaseUri,
         itemName,

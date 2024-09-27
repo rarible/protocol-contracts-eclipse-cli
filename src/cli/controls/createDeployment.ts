@@ -3,6 +3,7 @@ import { createDeployment } from "../../sdk/controls/createControlDeployment";
 import { LibreWallet } from "../../anchor/LibreWallet";
 import fs from "fs";
 import { Command } from "commander";
+import BN from "bn.js";
 
 // Define CLI options
 const cli = new Command();
@@ -23,6 +24,9 @@ cli
   .requiredOption("--itemBaseUri <itemBaseUri>", "Base URI for the item metadata")
   .requiredOption("--itemName <itemName>", "Name for each item in the edition")
   .option("--cosignerProgramId <cosignerProgramId>", "Optional cosigner program ID (PublicKey)")
+  .requiredOption("--platformFeeValue <platformFeeValue>", "Platform fee value (e.g., amount in lamports or basis points)")
+  .option("--isFeeFlat", "Indicate if the platform fee is a flat amount")
+  .requiredOption("--platformFeeRecipients <platformFeeRecipients...>", "List of platform fee recipients in the format '<address>:<share>'")
   .requiredOption("-r, --rpc <rpc>", "RPC endpoint")
   .parse(process.argv);
 
@@ -47,6 +51,15 @@ const opts = cli.opts();
       return { address: new PublicKey(address), share: parseInt(share) };
     });
 
+    // Parse platform fee recipients input
+    const platformFeeRecipients = opts.platformFeeRecipients.map((recipient: string) => {
+      const [address, share] = recipient.split(":");
+      if (!address || isNaN(parseInt(share))) {
+        throw new Error(`Invalid platform fee recipient input: ${recipient}. Expected format: '<address>:<share>'`);
+      }
+      return { address: new PublicKey(address), share: parseInt(share) };
+    });
+
     // Parse extra metadata input
     const extraMeta = opts.extraMeta
       ? opts.extraMeta.map((meta: string) => {
@@ -67,6 +80,16 @@ const opts = cli.opts();
       creators,
     };
 
+    // Prepare the platform fee object
+    const platformFeeValue = new BN(opts.platformFeeValue);
+    const isFeeFlat = !!opts.isFeeFlat; // true if flag is provided, false otherwise
+
+    const platformFee = {
+      platformFeeValue,
+      isFeeFlat,
+      recipients: platformFeeRecipients,
+    };
+
     // Create the deployment
     const { editions, editionsControls } = await createDeployment({
       wallet,
@@ -78,6 +101,7 @@ const opts = cli.opts();
         maxMintsPerWallet: +opts.maxMintsPerWallet,
         maxNumberOfTokens: +opts.maxNumberOfTokens,
         royalties,
+        platformFee,
         extraMeta,
         itemBaseUri: opts.itemBaseUri,
         itemName: opts.itemName,
