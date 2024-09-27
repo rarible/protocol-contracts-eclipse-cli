@@ -1,1 +1,5 @@
+
 node_modules
+.cursorrules
+.test-ledger
+.test-ledger/*
