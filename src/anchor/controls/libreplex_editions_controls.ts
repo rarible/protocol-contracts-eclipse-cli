@@ -1,5 +1,5 @@
 export type LibreplexEditionsControls = {
-  "address": "J87ZtbZvSYaBhwwDb4LqCHAh7rAUjkVWiab5AZ7R3TY5",
+  "address": "JBoH2n87fFvyJgsty8UN3KBTEWbkv1pH7yfT8kGKSs6y",
   "metadata": {
     "name": "libreplexEditionsControls",
     "version": "0.2.1",
@@ -45,7 +45,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
+          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
         }
       ],
       "args": [
@@ -146,7 +146,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
+          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
         }
       ],
       "args": [
@@ -351,7 +351,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
+          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
         }
       ],
       "args": [
@@ -440,7 +440,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
+          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
         }
       ],
       "args": [
@@ -529,7 +529,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
+          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
         }
       ],
       "args": [
@@ -1038,7 +1038,7 @@ export type LibreplexEditionsControls = {
 
 
 export const IDL: LibreplexEditionsControls = {
-  "address": "J87ZtbZvSYaBhwwDb4LqCHAh7rAUjkVWiab5AZ7R3TY5",
+  "address": "JBoH2n87fFvyJgsty8UN3KBTEWbkv1pH7yfT8kGKSs6y",
   "metadata": {
     "name": "libreplexEditionsControls",
     "version": "0.2.1",
@@ -1084,7 +1084,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
+          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
         }
       ],
       "args": [
@@ -1185,7 +1185,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
+          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
         }
       ],
       "args": [
@@ -1390,7 +1390,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
+          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
         }
       ],
       "args": [
@@ -1479,7 +1479,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
+          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
         }
       ],
       "args": [
@@ -1568,7 +1568,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "GBh9v74hwXm4pqMYVUndiUDdyA71et7EfqXfcbQTNhnf"
+          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
         }
       ],
       "args": [
