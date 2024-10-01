@@ -3,7 +3,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   -t BTicWgGhoTsBANuirXS7UCeF6bxfvTnCaxM5HQRRfGZS \
   -k ~/.config/solana/id.json \
   -r https://api.devnet.solana.com \
-  -s GRLT20 \
+  -s COOL2 \
   --maxNumberOfTokens 1150 \
   --maxMintsPerWallet 100 \
   -j "ipfs://QmbsXNSkPUtYNmKfYw1mUSVuz9QU8nhu7YvzM1aAQsv6xw/0" \
@@ -33,7 +33,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   -t BTicWgGhoTsBANuirXS7UCeF6bxfvTnCaxM5HQRRfGZS \
   -k ~/.config/solana/id.json \
   -r https://testnet.dev2.eclipsenetwork.xyz \
-  -s GRLT22 \
+  -s COOL \
   --maxNumberOfTokens 1150 \
   --maxMintsPerWallet 100 \
   -j "ipfs://QmbsXNSkPUtYNmKfYw1mUSVuz9QU8nhu7YvzM1aAQsv6xw/0" \
