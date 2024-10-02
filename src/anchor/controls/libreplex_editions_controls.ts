@@ -1,5 +1,5 @@
 export type LibreplexEditionsControls = {
-  "address": "6LzEKrZxqCyFuZXRErHgTCi9wQSpfLNdLcaxC26wJFiB",
+  "address": "3WDMk9suQtT1J9dRkEPRMyCp9VLwPaXngw5ronhn5d7R",
   "metadata": {
     "name": "libreplexEditionsControls",
     "version": "0.2.1",
@@ -331,7 +331,7 @@ export type LibreplexEditionsControls = {
           "writable": true
         },
         {
-          "name": "platformFeeRecipientMain",
+          "name": "platformFeeRecipient1",
           "writable": true
         },
         {
@@ -1173,8 +1173,10 @@ export type LibreplexEditionsControls = {
 
 
 
+
+
 export const IDL: LibreplexEditionsControls = {
-  "address": "6LzEKrZxqCyFuZXRErHgTCi9wQSpfLNdLcaxC26wJFiB",
+  "address": "3WDMk9suQtT1J9dRkEPRMyCp9VLwPaXngw5ronhn5d7R",
   "metadata": {
     "name": "libreplexEditionsControls",
     "version": "0.2.1",
@@ -1506,7 +1508,7 @@ export const IDL: LibreplexEditionsControls = {
           "writable": true
         },
         {
-          "name": "platformFeeRecipientMain",
+          "name": "platformFeeRecipient1",
           "writable": true
         },
         {

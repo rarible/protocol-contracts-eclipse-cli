@@ -135,7 +135,7 @@ export const mintWithControls = async ({
             minterStatsPhase,
             group: editionsObj.item.group,
             groupMint: editionsObj.item.groupMint,
-            platformFeeRecipientMain: editionsControlsObj.item.platformFeeRecipients[0].address,
+            platformFeeRecipient1: editionsControlsObj.item.platformFeeRecipients[0].address,
             groupExtensionProgram: PROGRAM_ID_GROUP_EXTENSIONS,
             tokenAccount,
             treasury: editionsControlsObj.item.treasury,

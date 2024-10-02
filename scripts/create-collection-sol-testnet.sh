@@ -3,7 +3,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   -t BTicWgGhoTsBANuirXS7UCeF6bxfvTnCaxM5HQRRfGZS \
   -k ~/.config/solana/id.json \
   -r https://api.devnet.solana.com \
-  -s GRLT36 \
+  -s GRLT38 \
   --maxNumberOfTokens 1150 \
   --maxMintsPerWallet 100 \
   -j "ipfs://QmbsXNSkPUtYNmKfYw1mUSVuz9QU8nhu7YvzM1aAQsv6xw/0" \
@@ -11,7 +11,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   --creators 674s1Sap3KVnr8WGrY5KGQ69oTYjjgr1disKJo6GpTYw:50 QjzRL6VwKGnpco8wx3cPjtq8ZPhewy7ohq7F5mv2eeR:50 \
   --royaltyBasisPoints 1000 \
   --platformFeeValue 500000 \
-  --platformFeeRecipients 674s1Sap3KVnr8WGrY5KGQ69oTYjjgr1disKJo6GpTYw:50 QjzRL6VwKGnpco8wx3cPjtq8ZPhewy7ohq7F5mv2eeR:50 \
+  --platformFeeRecipients 674s1Sap3KVnr8WGrY5KGQ69oTYjjgr1disKJo6GpTYw:100 \
   --isFeeFlat \
   --extraMeta "field1:value1" "field2:value2" "field3:value3" "field4:value4" \
   --itemBaseUri "ipfs://QmbsXNSkPUtYNmKfYw1mUSVuz9QU8nhu7YvzM1aAQsv6xw/{}" \
@@ -19,10 +19,10 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
 
 
 
-npx ts-node ./src/cli/controls/addPhase.ts -d 8uCW6YD9QyLFpeuMR8X4VZMYKwUXFhaywXrvxMUswi92 -k ~/.config/solana/id.json -r https://api.devnet.solana.com  --maxMintsPerWallet 100 --maxMintsTotal 1150 --priceAmount 0 -s 1709564319 -e 1959564319
+npx ts-node ./src/cli/controls/addPhase.ts -d 9jkje89GCXpKpGYe6vU8HxawVLtB37nLgwTWo1QNGbQN -k ~/.config/solana/id.json -r https://api.devnet.solana.com  --maxMintsPerWallet 100 --maxMintsTotal 1150 --priceAmount 0 -s 1709564319 -e 1959564319
 
 
-npx ts-node ./src/cli/controls/mintWithControls.ts -d 8uCW6YD9QyLFpeuMR8X4VZMYKwUXFhaywXrvxMUswi92 -k ~/.config/solana/id.json -r https://api.devnet.solana.com  -p 0 -n 1
+npx ts-node ./src/cli/controls/mintWithControls.ts -d 9jkje89GCXpKpGYe6vU8HxawVLtB37nLgwTWo1QNGbQN -k ~/.config/solana/id.json -r https://api.devnet.solana.com  -p 0 -n 1
 
 
 # modify royalties
