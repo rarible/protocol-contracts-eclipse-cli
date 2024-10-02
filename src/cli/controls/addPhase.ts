@@ -42,9 +42,9 @@ const opts = cli.opts();
         priceAmount: +opts.priceAmount,
         maxMintsTotal: +opts.maxMintsTotal,
         deploymentId: opts.deploymentId,
-        startTime: opts.startTime ? +opts.startTime : undefined,
-        endTime: opts.endTime ? +opts.endTime : undefined,
-        merkleRoot: opts.merkleRoot ? JSON.parse(opts.merkleRoot) : undefined
+        startTime: opts.startTime ? +opts.startTime : null,
+        endTime: opts.endTime ? +opts.endTime : null,
+        merkleRoot: opts.merkleRoot ? JSON.parse(opts.merkleRoot) : null
       },
       connection,
     });

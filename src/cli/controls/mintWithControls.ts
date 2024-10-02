@@ -36,6 +36,17 @@ const opts = cli.opts();
     }
   }
 
+  const params = {
+    editionsId: opts.deploymentId,
+    phaseIndex: +opts.phaseIndex,
+    numberOfMints: +opts.numberOfMints,
+    merkleProof: isAllowListMint ? JSON.parse(opts.merkleProof) : null,
+    allowListPrice: isAllowListMint ? opts.allowListPrice : null,
+    allowListMaxClaims: isAllowListMint ? opts.allowListMaxClaims : null,
+    isAllowListMint,
+  } as IMintWithControls;
+  console.log("mint params:", { params });
+
   await mintWithControls({
     wallet: new LibreWallet(signerKeypair),
     params: {
