@@ -52,11 +52,7 @@ import {
         editionsControls: editionsControlsPda,
         editionsDeployment: editions,
         payer: wallet.publicKey,
-        groupMint: editionsObj.groupMint,
-        systemProgram: SystemProgram.programId,
-        tokenProgram: TOKEN_2022_PROGRAM_ID,
         creator: wallet.publicKey,
-        libreplexEditionsProgram: libreplexEditionsProgram.programId,
       })
       .signers([])
       .instruction();

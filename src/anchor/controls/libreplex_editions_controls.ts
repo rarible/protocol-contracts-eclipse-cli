@@ -1,5 +1,5 @@
 export type LibreplexEditionsControls = {
-  "address": "JBoH2n87fFvyJgsty8UN3KBTEWbkv1pH7yfT8kGKSs6y",
+  "address": "6LzEKrZxqCyFuZXRErHgTCi9wQSpfLNdLcaxC26wJFiB",
   "metadata": {
     "name": "libreplexEditionsControls",
     "version": "0.2.1",
@@ -45,7 +45,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
+          "address": "38bTcDm2U1tahksh82TPUYgqTdE8Wd5CJyW3hxyfvafS"
         }
       ],
       "args": [
@@ -146,7 +146,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
+          "address": "38bTcDm2U1tahksh82TPUYgqTdE8Wd5CJyW3hxyfvafS"
         }
       ],
       "args": [
@@ -226,6 +226,10 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "signer",
+          "docs": [
+            "When deployment.require_creator_cosign is true, this must be equal to the creator",
+            "of the deployment; otherwise, can be any signer account"
+          ],
           "signer": true
         },
         {
@@ -327,6 +331,10 @@ export type LibreplexEditionsControls = {
           "writable": true
         },
         {
+          "name": "platformFeeRecipientMain",
+          "writable": true
+        },
+        {
           "name": "tokenAccount",
           "writable": true
         },
@@ -351,7 +359,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
+          "address": "38bTcDm2U1tahksh82TPUYgqTdE8Wd5CJyW3hxyfvafS"
         }
       ],
       "args": [
@@ -425,22 +433,6 @@ export type LibreplexEditionsControls = {
           "name": "creator",
           "writable": true,
           "signer": true
-        },
-        {
-          "name": "groupMint",
-          "writable": true
-        },
-        {
-          "name": "systemProgram",
-          "address": "11111111111111111111111111111111"
-        },
-        {
-          "name": "tokenProgram",
-          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
-        },
-        {
-          "name": "libreplexEditionsProgram",
-          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
         }
       ],
       "args": [
@@ -449,6 +441,74 @@ export type LibreplexEditionsControls = {
           "type": {
             "defined": {
               "name": "updatePlatformFeeArgs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modifyPlatformSecondaryAdmin",
+      "discriminator": [
+        128,
+        153,
+        231,
+        143,
+        156,
+        220,
+        161,
+        147
+      ],
+      "accounts": [
+        {
+          "name": "editionsDeployment",
+          "writable": true
+        },
+        {
+          "name": "editionsControls",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  100,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110,
+                  115,
+                  95,
+                  99,
+                  111,
+                  110,
+                  116,
+                  114,
+                  111,
+                  108,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "editionsDeployment"
+              }
+            ]
+          }
+        },
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "defined": {
+              "name": "updatePlatformFeeSecondaryAdminInput"
             }
           }
         }
@@ -529,7 +589,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
+          "address": "38bTcDm2U1tahksh82TPUYgqTdE8Wd5CJyW3hxyfvafS"
         }
       ],
       "args": [
@@ -635,6 +695,41 @@ export type LibreplexEditionsControls = {
       "code": 6009,
       "name": "creatorFeeTooHigh",
       "msg": "Creator fee too high"
+    },
+    {
+      "code": 6010,
+      "name": "feeCalculationError",
+      "msg": "Platform fee calculation failed."
+    },
+    {
+      "code": 6011,
+      "name": "feeExceedsPrice",
+      "msg": "Total fee exceeds the price amount."
+    },
+    {
+      "code": 6012,
+      "name": "invalidFeeShares",
+      "msg": "Total fee shares must equal 100."
+    },
+    {
+      "code": 6013,
+      "name": "tooManyRecipients",
+      "msg": "Too many platform fee recipients. Maximum allowed is 5."
+    },
+    {
+      "code": 6014,
+      "name": "recipientMismatch",
+      "msg": "Recipient account does not match the expected address."
+    },
+    {
+      "code": 6015,
+      "name": "noPhasesAdded",
+      "msg": "No phases have been added. Cannot mint."
+    },
+    {
+      "code": 6016,
+      "name": "invalidPhaseIndex",
+      "msg": "Invalid phase index."
     }
   ],
   "types": [
@@ -694,6 +789,35 @@ export type LibreplexEditionsControls = {
           {
             "name": "cosignerProgramId",
             "type": "pubkey"
+          },
+          {
+            "name": "platformFeePrimaryAdmin",
+            "type": "pubkey"
+          },
+          {
+            "name": "platformFeeSecondaryAdmin",
+            "type": "pubkey"
+          },
+          {
+            "name": "platformFeeValue",
+            "type": "u64"
+          },
+          {
+            "name": "isFeeFlat",
+            "type": "bool"
+          },
+          {
+            "name": "platformFeeRecipients",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "platformFeeRecipient"
+                  }
+                },
+                5
+              ]
+            }
           },
           {
             "name": "padding",
@@ -1006,6 +1130,18 @@ export type LibreplexEditionsControls = {
           {
             "name": "isFeeFlat",
             "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "updatePlatformFeeSecondaryAdminInput",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "newAdmin",
+            "type": "pubkey"
           }
         ]
       }
@@ -1038,7 +1174,7 @@ export type LibreplexEditionsControls = {
 
 
 export const IDL: LibreplexEditionsControls = {
-  "address": "JBoH2n87fFvyJgsty8UN3KBTEWbkv1pH7yfT8kGKSs6y",
+  "address": "6LzEKrZxqCyFuZXRErHgTCi9wQSpfLNdLcaxC26wJFiB",
   "metadata": {
     "name": "libreplexEditionsControls",
     "version": "0.2.1",
@@ -1084,7 +1220,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
+          "address": "38bTcDm2U1tahksh82TPUYgqTdE8Wd5CJyW3hxyfvafS"
         }
       ],
       "args": [
@@ -1185,7 +1321,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
+          "address": "38bTcDm2U1tahksh82TPUYgqTdE8Wd5CJyW3hxyfvafS"
         }
       ],
       "args": [
@@ -1265,6 +1401,10 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "signer",
+          "docs": [
+            "When deployment.require_creator_cosign is true, this must be equal to the creator",
+            "of the deployment; otherwise, can be any signer account"
+          ],
           "signer": true
         },
         {
@@ -1366,6 +1506,10 @@ export const IDL: LibreplexEditionsControls = {
           "writable": true
         },
         {
+          "name": "platformFeeRecipientMain",
+          "writable": true
+        },
+        {
           "name": "tokenAccount",
           "writable": true
         },
@@ -1390,7 +1534,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
+          "address": "38bTcDm2U1tahksh82TPUYgqTdE8Wd5CJyW3hxyfvafS"
         }
       ],
       "args": [
@@ -1464,22 +1608,6 @@ export const IDL: LibreplexEditionsControls = {
           "name": "creator",
           "writable": true,
           "signer": true
-        },
-        {
-          "name": "groupMint",
-          "writable": true
-        },
-        {
-          "name": "systemProgram",
-          "address": "11111111111111111111111111111111"
-        },
-        {
-          "name": "tokenProgram",
-          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
-        },
-        {
-          "name": "libreplexEditionsProgram",
-          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
         }
       ],
       "args": [
@@ -1488,6 +1616,74 @@ export const IDL: LibreplexEditionsControls = {
           "type": {
             "defined": {
               "name": "updatePlatformFeeArgs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modifyPlatformSecondaryAdmin",
+      "discriminator": [
+        128,
+        153,
+        231,
+        143,
+        156,
+        220,
+        161,
+        147
+      ],
+      "accounts": [
+        {
+          "name": "editionsDeployment",
+          "writable": true
+        },
+        {
+          "name": "editionsControls",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  100,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110,
+                  115,
+                  95,
+                  99,
+                  111,
+                  110,
+                  116,
+                  114,
+                  111,
+                  108,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "editionsDeployment"
+              }
+            ]
+          }
+        },
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "defined": {
+              "name": "updatePlatformFeeSecondaryAdminInput"
             }
           }
         }
@@ -1568,7 +1764,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "CeGRFA9sFRbfhaUVWj4hi3oDezCD8o56abbdMoeAkYBU"
+          "address": "38bTcDm2U1tahksh82TPUYgqTdE8Wd5CJyW3hxyfvafS"
         }
       ],
       "args": [
@@ -1674,6 +1870,41 @@ export const IDL: LibreplexEditionsControls = {
       "code": 6009,
       "name": "creatorFeeTooHigh",
       "msg": "Creator fee too high"
+    },
+    {
+      "code": 6010,
+      "name": "feeCalculationError",
+      "msg": "Platform fee calculation failed."
+    },
+    {
+      "code": 6011,
+      "name": "feeExceedsPrice",
+      "msg": "Total fee exceeds the price amount."
+    },
+    {
+      "code": 6012,
+      "name": "invalidFeeShares",
+      "msg": "Total fee shares must equal 100."
+    },
+    {
+      "code": 6013,
+      "name": "tooManyRecipients",
+      "msg": "Too many platform fee recipients. Maximum allowed is 5."
+    },
+    {
+      "code": 6014,
+      "name": "recipientMismatch",
+      "msg": "Recipient account does not match the expected address."
+    },
+    {
+      "code": 6015,
+      "name": "noPhasesAdded",
+      "msg": "No phases have been added. Cannot mint."
+    },
+    {
+      "code": 6016,
+      "name": "invalidPhaseIndex",
+      "msg": "Invalid phase index."
     }
   ],
   "types": [
@@ -1733,6 +1964,35 @@ export const IDL: LibreplexEditionsControls = {
           {
             "name": "cosignerProgramId",
             "type": "pubkey"
+          },
+          {
+            "name": "platformFeePrimaryAdmin",
+            "type": "pubkey"
+          },
+          {
+            "name": "platformFeeSecondaryAdmin",
+            "type": "pubkey"
+          },
+          {
+            "name": "platformFeeValue",
+            "type": "u64"
+          },
+          {
+            "name": "isFeeFlat",
+            "type": "bool"
+          },
+          {
+            "name": "platformFeeRecipients",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "platformFeeRecipient"
+                  }
+                },
+                5
+              ]
+            }
           },
           {
             "name": "padding",
@@ -2045,6 +2305,18 @@ export const IDL: LibreplexEditionsControls = {
           {
             "name": "isFeeFlat",
             "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "updatePlatformFeeSecondaryAdminInput",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "newAdmin",
+            "type": "pubkey"
           }
         ]
       }
