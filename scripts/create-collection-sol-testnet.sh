@@ -19,12 +19,12 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
 
 # create phase with allow list
 npx ts-node ./src/cli/controls/addPhase.ts -d 14LXuvT1CCUcxzxY87hxAHLTkW46tTpuZUY1ARpvSqmC -k ~/.config/solana/id.json -r https://api.devnet.solana.com --maxMintsPerWallet 100 --maxMintsTotal 1000 --priceAmount 100 -s 1727896829 -e 1759431617 -m "[212, 215, 40, 226, 187, 234, 161, 122, 12, 63, 245, 247, 52, 154, 111, 169, 93, 188, 148, 136, 219, 178, 25, 235, 255, 205, 61, 172, 52, 98, 128, 208]"
-# create phase without allow list (Currently we have a bug of Error Code: InstructionDidNotDeserialize when creating a a phase without allow list being provided)
+# create phase without allow list (@dev @tbd Currently we have a bug of Error Code: InstructionDidNotDeserialize when creating a a phase without allow list being provided)
 npx ts-node ./src/cli/controls/addPhase.ts -d 14LXuvT1CCUcxzxY87hxAHLTkW46tTpuZUY1ARpvSqmC -k ~/.config/solana/id.json -r https://api.devnet.solana.com --maxMintsPerWallet 100 --maxMintsTotal 1000 --priceAmount 666666 -s 1727896829 -e 1759431617
 
 # mint on phase 0 with allow list
 npx ts-node ./src/cli/controls/mintWithControls.ts -d 14LXuvT1CCUcxzxY87hxAHLTkW46tTpuZUY1ARpvSqmC -k ~/.config/solana/id.json -r https://api.devnet.solana.com  -p 0 -n 1 --merkleProof "[[1,2,3],[1,2,3],[1,2,3]]" --allowListPrice 100000 --allowListMaxClaims 12
-# mint on phase 0 without allow list
+# mint on phase 0 without allow list (@dev @tbd Currently I'm not able to mint on a phase that has a price set.)
 npx ts-node ./src/cli/controls/mintWithControls.ts -d 14LXuvT1CCUcxzxY87hxAHLTkW46tTpuZUY1ARpvSqmC -k ~/.config/solana/id.json -r https://api.devnet.solana.com  -p 0 -n 1
 
 

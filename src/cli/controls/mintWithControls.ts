@@ -50,7 +50,9 @@ const opts = cli.opts();
     connection,
   })
     .catch(error => {
-      console.error("Error during minting:");
+      console.log("Error during minting");
+      console.log(error);
+      console.error("FULL ERROR: ", JSON.stringify(error, null, 2));
     })
     .finally(() => {
       console.log("Finished minting");
