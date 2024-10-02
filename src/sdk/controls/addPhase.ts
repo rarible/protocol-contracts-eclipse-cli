@@ -21,7 +21,8 @@ export interface IAddPhase {
   maxMintsTotal: number,
   deploymentId: string,
   startTime: number | undefined,
-  endTime: number | undefined
+  endTime: number | undefined,
+  merkleRoot?: number[];
 }
 
 export const addPhase = async ({
@@ -35,7 +36,8 @@ export const addPhase = async ({
     maxMintsTotal,
     maxMintsPerWallet,
     startTime,
-    endTime
+    endTime,
+    merkleRoot
   } = params;
 
   const editionProgram = getProgramInstanceEditionsControls(connection);
@@ -43,8 +45,6 @@ export const addPhase = async ({
   const libreplexEditionsProgram = getProgramInstanceEditions(connection);
   const instructions: TransactionInstruction[] = [];
   /// creates an open editions launch
-
-  
 
   const controls = getEditionsControlsPda(new PublicKey(deploymentId))
 
@@ -59,8 +59,8 @@ export const addPhase = async ({
           maxMintsPerWallet: new BN(maxMintsPerWallet),
           maxMintsTotal: new BN(maxMintsTotal),
           /// max i64 value - this is open ended
-          endTime: endTime !== undefined ? new BN(endTime) : new BN(9007199254740991)
-
+          endTime: endTime !== undefined ? new BN(endTime) : new BN(9007199254740991),
+          merkleRoot: merkleRoot
         }
       )
       .accountsStrict({

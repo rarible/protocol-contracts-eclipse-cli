@@ -21,7 +21,7 @@ cli
   .requiredOption("--maxMintsPerWallet <maxMintsPerWallet>", "Max mints per wallet (total), 0 for unlimited")
   .requiredOption("--maxMintsTotal <maxMintsTotal>", "Max mints per phase (total across all wallets), 0 for unlimited")
   .requiredOption("--priceAmount <priceAmount>", "Price per mint in lamports, can be 0")
- 
+  .option("-m, --merkleRoot <merkleRoot>", "Merkle root to include in allowlist")
   .parse(process.argv);
 
 const opts = cli.opts();
@@ -44,8 +44,7 @@ const opts = cli.opts();
         deploymentId: opts.deploymentId,
         startTime: opts.startTime ? +opts.startTime : undefined,
         endTime: opts.endTime ? +opts.endTime : undefined,
-         
-
+        merkleRoot: opts.merkleRoot ? JSON.parse(opts.merkleRoot) : undefined
       },
       connection,
     });

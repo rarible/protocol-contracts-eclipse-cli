@@ -69,15 +69,18 @@ const opts = cli.opts();
           coreDeployment: editionsControlsObj.item.editionsDeployment.toBase58(),
           creator: editionsControlsObj.item.creator.toBase58(),
           treasury: editionsControlsObj.item.treasury.toBase58(),
-
+        },
           phases: editionsControlsObj.item.phases.map((item, idx) => ({
             phaseIndex: idx,
             currentMints: Number(item.currentMints),
+            maxMintsPerWallet: Number(item.maxMintsPerWallet),
+            maxMintsTotal: Number(item.maxMintsTotal),
             startTime: Number(item.startTime),
             endTime: Number(item.endTime),
             priceAmount: Number(item.priceAmount),
+            priceToken: item.priceToken ? item.priceToken.toBase58() : null,
+            merkleRoot: item.merkleRoot ? JSON.stringify(item.merkleRoot) : null,
           })),
-        },
       });
     }
   } catch (e) {

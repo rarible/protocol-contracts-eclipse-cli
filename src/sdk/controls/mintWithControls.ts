@@ -32,6 +32,10 @@ export interface IMintWithControls {
   phaseIndex: number;
   editionsId: string;
   numberOfMints: number;
+  merkleProof?: number[][];
+  allowListPrice?: number;
+  allowListMaxClaims?: number;
+  isAllowListMint: boolean;
 }
 
 const MAX_MINTS_PER_TRANSACTION = 3;
@@ -41,7 +45,7 @@ export const mintWithControls = async ({
   params,
   connection,
 }: IExecutorParams<IMintWithControls>) => {
-  const { phaseIndex, editionsId, numberOfMints } = params;
+  const { phaseIndex, editionsId, numberOfMints, merkleProof, allowListPrice, allowListMaxClaims, isAllowListMint } = params;
 
   const editionsControlsProgram =
     getProgramInstanceEditionsControls(connection);
@@ -119,6 +123,9 @@ export const mintWithControls = async ({
         await editionsControlsProgram.methods
           .mintWithControls({
             phaseIndex,
+            merkleProof: isAllowListMint ? merkleProof : null,
+            allowListPrice: isAllowListMint ? new BN(allowListPrice) : null,
+            allowListMaxClaims: isAllowListMint ? new BN(allowListMaxClaims) : null,
           })
           .accountsStrict({
             editionsDeployment: editions,
@@ -167,7 +174,14 @@ export const mintWithControls = async ({
     })
   );
 
-  await Promise.all(promises);
+  try {
+    await Promise.all(promises);
+  } catch (error) {
+    console.error("Error during minting:");
+    if (error instanceof Error) {
+    console.error(JSON.stringify(error, null, 2));
+    }
+  }
 
   return { editions, editionsControls: editionsControlsPda };
 };

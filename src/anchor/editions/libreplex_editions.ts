@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/libreplex_editions.json`.
  */
 export type LibreplexEditions = {
-  "address": "AffMEwvVXZgKcSD5aBDeB6H9PByiupYLryt4nw7LUbYA",
+  "address": "2wxjzcyejdC7jqgJPx3SVGhtroKoyB7ixERtRhKXTBxR",
   "metadata": {
     "name": "libreplexEditions",
     "version": "0.2.1",
@@ -1193,7 +1193,7 @@ export type LibreplexEditions = {
 };
 
 export const IDL : LibreplexEditions = {
-  "address": "AffMEwvVXZgKcSD5aBDeB6H9PByiupYLryt4nw7LUbYA",
+  "address": "2wxjzcyejdC7jqgJPx3SVGhtroKoyB7ixERtRhKXTBxR",
   "metadata": {
     "name": "libreplexEditions",
     "version": "0.2.1",
