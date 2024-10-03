@@ -7,7 +7,7 @@ KEYPAIR_PATH="$HOME/.config/solana/id.json"
 RPC_URL="https://api.devnet.solana.com"
 
 # ID of the deployment you want to update royalties for
-DEPLOYMENT_ID="BvQ6QPwmFk93zwNPBt6LKkKHp6zZLQuZn4iEuNm9mDmr"
+DEPLOYMENT_ID="AQCivvumc6hGZrMvJScDkUe8etX6RSrL1QpNZxEZ4kyY"
 
 # Royalty basis points (e.g., 1000 for 10%)
 ROYALTY_BASIS_POINTS=1100

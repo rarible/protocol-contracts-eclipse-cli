@@ -115,6 +115,7 @@ export const mintWithControls = async ({
         TOKEN_2022_PROGRAM_ID
       );
 
+      console.log("platformFeeRecipients", JSON.stringify(editionsControlsObj.item.platformFeeRecipients));
       const hashlistMarker = getHashlistMarkerPda(editions, mint.publicKey)[0];
 
       instructions.push(
@@ -139,6 +140,7 @@ export const mintWithControls = async ({
             minterStatsPhase,
             group: editionsObj.item.group,
             groupMint: editionsObj.item.groupMint,
+            platformFeeRecipient1: editionsControlsObj.item.platformFeeRecipients[0].address,
             groupExtensionProgram: PROGRAM_ID_GROUP_EXTENSIONS,
             tokenAccount,
             treasury: editionsControlsObj.item.treasury,
@@ -146,6 +148,7 @@ export const mintWithControls = async ({
             tokenProgram: TOKEN_2022_PROGRAM_ID,
             libreplexEditionsProgram: libreplexEditionsProgram.programId,
             associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
+            
           })
           .signers([mint, member])
           .instruction()
