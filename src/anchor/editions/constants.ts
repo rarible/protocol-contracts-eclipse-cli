@@ -1,1 +1,1 @@
-export const PROGRAM_ID_EDITIONS = "38bTcDm2U1tahksh82TPUYgqTdE8Wd5CJyW3hxyfvafS";
+export const PROGRAM_ID_EDITIONS = "6hRLBM1rexUvd64qaBHQJUz4ufRAFbXZXM12ExWd7kYX";
