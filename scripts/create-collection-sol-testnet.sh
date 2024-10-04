@@ -18,18 +18,18 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   --itemName "Item T8 V4 #{}"
 
 # create phase with allow list
-npx ts-node ./src/cli/controls/addPhase.ts -d 4Lmw9GTaiEFdQS2dBu6XGKpEkcoBcvybZVsrVqDBQbym -k ~/.config/solana/id.json -r https://api.devnet.solana.com --maxMintsPerWallet 100 --maxMintsTotal 1000 --priceAmount 0 -s 1727896829 -e 1759431617 -m ./src/cli/controls/input/input.json
+npx ts-node ./src/cli/controls/addPhase.ts -d AzhRbcBnt8QvTyERm8VQWFwCQbWbyNyfVgE9gyhH4iej -k ~/.config/solana/id.json -r https://api.devnet.solana.com --maxMintsPerWallet 100 --maxMintsTotal 1000 --priceAmount 0 -s 1727896829 -e 1759431617 -m ./src/cli/controls/input/input.json
 
 # create phase without allow list
-npx ts-node ./src/cli/controls/addPhase.ts -d 4Lmw9GTaiEFdQS2dBu6XGKpEkcoBcvybZVsrVqDBQbym -k ~/.config/solana/id.json -r https://api.devnet.solana.com --maxMintsPerWallet 100 --maxMintsTotal 1000 --priceAmount 666666 -s 1727896829 -e 1759431617
+npx ts-node ./src/cli/controls/addPhase.ts -d AzhRbcBnt8QvTyERm8VQWFwCQbWbyNyfVgE9gyhH4iej -k ~/.config/solana/id.json -r https://api.devnet.solana.com --maxMintsPerWallet 100 --maxMintsTotal 1000 --priceAmount 666666 -s 1727896829 -e 1759431617
 
 # mint using allow list
-npx ts-node ./src/cli/controls/mintWithControls.ts -d 4Lmw9GTaiEFdQS2dBu6XGKpEkcoBcvybZVsrVqDBQbym -k ~/.config/solana/id.json -r https://api.devnet.solana.com  -p 4 -n 1 -m ./src/cli/controls/input/input.json --allowListPrice 50000000 --allowListMaxClaims 5
+npx ts-node ./src/cli/controls/mintWithControls.ts -d AzhRbcBnt8QvTyERm8VQWFwCQbWbyNyfVgE9gyhH4iej -k ~/.config/solana/id.json -r https://api.devnet.solana.com  -p 0 -n 1 -m ./src/cli/controls/input/input.json --allowListPrice 50000000 --allowListMaxClaims 5
 # mint without allow list
-npx ts-node ./src/cli/controls/mintWithControls.ts -d 4Lmw9GTaiEFdQS2dBu6XGKpEkcoBcvybZVsrVqDBQbym -k ~/.config/solana/id.json -r https://api.devnet.solana.com  -p 0 -n 1
+npx ts-node ./src/cli/controls/mintWithControls.ts -d AzhRbcBnt8QvTyERm8VQWFwCQbWbyNyfVgE9gyhH4iej -k ~/.config/solana/id.json -r https://api.devnet.solana.com  -p 0 -n 1
 
 # view collection
-npx ts-node ./src/cli/core/viewDeployment.ts -r https://api.devnet.solana.com  -i 4Lmw9GTaiEFdQS2dBu6XGKpEkcoBcvybZVsrVqDBQbym 
+npx ts-node ./src/cli/core/viewDeployment.ts -r https://api.devnet.solana.com  -i AzhRbcBnt8QvTyERm8VQWFwCQbWbyNyfVgE9gyhH4iej 
 
 
 

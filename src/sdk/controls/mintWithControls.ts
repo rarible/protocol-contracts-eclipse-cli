@@ -15,7 +15,6 @@ import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
 } from "spl-token-4";
 import { getProgramInstanceEditions } from "../../anchor/editions/getProgramInstanceEditions";
-import { getEditionsPda } from "../../anchor/editions/pdas/getEditionsPda";
 import { IExecutorParams } from "../../cli/IExecutorParams";
 import { sendSignedTransaction } from "../tx_utils";
 import { getHashlistPda } from "../../anchor/editions/pdas/getHashlistPda";
@@ -175,13 +174,9 @@ export const mintWithControls = async ({
     })
   );
 
-  console.log("Sending ", txs.length, " transactions...");
-  const results = await Promise.all(promises);
+  await Promise.all(promises);
 
-  console.log("Minting successful. Transaction IDs:");
-  results.forEach((txid, index) => {
-    console.log(`Mint ${index + 1}: ${txid}`);
-  });
+  console.log("Minting successful.");
 
   return { editions, editionsControls: editionsControlsPda };
 };
