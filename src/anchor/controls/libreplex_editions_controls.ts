@@ -1,5 +1,11 @@
+/**
+ * Program IDL in camelCase format in order to be used in JS/TS.
+ *
+ * Note that this is only a type helper and is not the actual IDL. The original
+ * IDL can be found at `target/idl/libreplex_editions_controls.json`.
+ */
 export type LibreplexEditionsControls = {
-  "address": "Ady6poZ59kW6rvbad3hiQpf8vun58RzHtNQ5Zvh7aJk3",
+  "address": "8FEBY2DomLgXkBU8Le4eYRUSTxTh2AeSubvmVV6dxnco",
   "metadata": {
     "name": "libreplexEditionsControls",
     "version": "0.2.1",
@@ -45,7 +51,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "6hRLBM1rexUvd64qaBHQJUz4ufRAFbXZXM12ExWd7kYX"
+          "address": "GWvPUJ7j4XzT1AJnHn7UkmJbodRkvCay2yLwVQcN2YEp"
         }
       ],
       "args": [
@@ -146,7 +152,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "6hRLBM1rexUvd64qaBHQJUz4ufRAFbXZXM12ExWd7kYX"
+          "address": "GWvPUJ7j4XzT1AJnHn7UkmJbodRkvCay2yLwVQcN2YEp"
         }
       ],
       "args": [
@@ -359,7 +365,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "6hRLBM1rexUvd64qaBHQJUz4ufRAFbXZXM12ExWd7kYX"
+          "address": "GWvPUJ7j4XzT1AJnHn7UkmJbodRkvCay2yLwVQcN2YEp"
         }
       ],
       "args": [
@@ -589,7 +595,7 @@ export type LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "6hRLBM1rexUvd64qaBHQJUz4ufRAFbXZXM12ExWd7kYX"
+          "address": "GWvPUJ7j4XzT1AJnHn7UkmJbodRkvCay2yLwVQcN2YEp"
         }
       ],
       "args": [
@@ -730,6 +736,61 @@ export type LibreplexEditionsControls = {
       "code": 6016,
       "name": "invalidPhaseIndex",
       "msg": "Invalid phase index."
+    },
+    {
+      "code": 6017,
+      "name": "merkleRootNotSet",
+      "msg": "Merkle root not set for allow list mint"
+    },
+    {
+      "code": 6018,
+      "name": "merkleProofRequired",
+      "msg": "Merkle proof required for allow list mint"
+    },
+    {
+      "code": 6019,
+      "name": "allowListPriceAndMaxClaimsRequired",
+      "msg": "Allow list price and max claims are required for allow list mint"
+    },
+    {
+      "code": 6020,
+      "name": "invalidMerkleProof",
+      "msg": "Invalid merkle proof"
+    },
+    {
+      "code": 6021,
+      "name": "exceededAllowListMaxClaims",
+      "msg": "This wallet has exceeded allow list max_claims in the current phase"
+    },
+    {
+      "code": 6022,
+      "name": "phaseNotActive",
+      "msg": "Phase not active"
+    },
+    {
+      "code": 6023,
+      "name": "phaseNotStarted",
+      "msg": "Phase not yet started"
+    },
+    {
+      "code": 6024,
+      "name": "phaseAlreadyFinished",
+      "msg": "Phase already finished"
+    },
+    {
+      "code": 6025,
+      "name": "exceededMaxMintsForPhase",
+      "msg": "Exceeded max mints for this phase"
+    },
+    {
+      "code": 6026,
+      "name": "exceededWalletMaxMintsForPhase",
+      "msg": "Exceeded wallet max mints for this phase"
+    },
+    {
+      "code": 6027,
+      "name": "exceededWalletMaxMintsForCollection",
+      "msg": "Exceeded wallet max mints for the collection"
     }
   ],
   "types": [
@@ -820,15 +881,6 @@ export type LibreplexEditionsControls = {
             }
           },
           {
-            "name": "padding",
-            "type": {
-              "array": [
-                "u8",
-                200
-              ]
-            }
-          },
-          {
             "name": "phases",
             "type": {
               "vec": {
@@ -836,6 +888,15 @@ export type LibreplexEditionsControls = {
                   "name": "phase"
                 }
               }
+            }
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u8",
+                200
+              ]
             }
           }
         ]
@@ -1002,6 +1063,17 @@ export type LibreplexEditionsControls = {
           {
             "name": "endTime",
             "type": "i64"
+          },
+          {
+            "name": "merkleRoot",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  32
+                ]
+              }
+            }
           }
         ]
       }
@@ -1014,6 +1086,31 @@ export type LibreplexEditionsControls = {
           {
             "name": "phaseIndex",
             "type": "u32"
+          },
+          {
+            "name": "merkleProof",
+            "type": {
+              "option": {
+                "vec": {
+                  "array": [
+                    "u8",
+                    32
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "name": "allowListPrice",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "allowListMaxClaims",
+            "type": {
+              "option": "u64"
+            }
           }
         ]
       }
@@ -1079,6 +1176,17 @@ export type LibreplexEditionsControls = {
           {
             "name": "currentMints",
             "type": "u64"
+          },
+          {
+            "name": "merkleRoot",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  32
+                ]
+              }
+            }
           },
           {
             "name": "padding",
@@ -1171,12 +1279,8 @@ export type LibreplexEditionsControls = {
   ]
 };
 
-
-
-
-
-export const IDL: LibreplexEditionsControls = {
-  "address": "Ady6poZ59kW6rvbad3hiQpf8vun58RzHtNQ5Zvh7aJk3",
+export const IDL : LibreplexEditionsControls = {
+  "address": "8FEBY2DomLgXkBU8Le4eYRUSTxTh2AeSubvmVV6dxnco",
   "metadata": {
     "name": "libreplexEditionsControls",
     "version": "0.2.1",
@@ -1222,7 +1326,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "6hRLBM1rexUvd64qaBHQJUz4ufRAFbXZXM12ExWd7kYX"
+          "address": "GWvPUJ7j4XzT1AJnHn7UkmJbodRkvCay2yLwVQcN2YEp"
         }
       ],
       "args": [
@@ -1323,7 +1427,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "6hRLBM1rexUvd64qaBHQJUz4ufRAFbXZXM12ExWd7kYX"
+          "address": "GWvPUJ7j4XzT1AJnHn7UkmJbodRkvCay2yLwVQcN2YEp"
         }
       ],
       "args": [
@@ -1536,7 +1640,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "6hRLBM1rexUvd64qaBHQJUz4ufRAFbXZXM12ExWd7kYX"
+          "address": "GWvPUJ7j4XzT1AJnHn7UkmJbodRkvCay2yLwVQcN2YEp"
         }
       ],
       "args": [
@@ -1766,7 +1870,7 @@ export const IDL: LibreplexEditionsControls = {
         },
         {
           "name": "libreplexEditionsProgram",
-          "address": "6hRLBM1rexUvd64qaBHQJUz4ufRAFbXZXM12ExWd7kYX"
+          "address": "GWvPUJ7j4XzT1AJnHn7UkmJbodRkvCay2yLwVQcN2YEp"
         }
       ],
       "args": [
@@ -1907,6 +2011,61 @@ export const IDL: LibreplexEditionsControls = {
       "code": 6016,
       "name": "invalidPhaseIndex",
       "msg": "Invalid phase index."
+    },
+    {
+      "code": 6017,
+      "name": "merkleRootNotSet",
+      "msg": "Merkle root not set for allow list mint"
+    },
+    {
+      "code": 6018,
+      "name": "merkleProofRequired",
+      "msg": "Merkle proof required for allow list mint"
+    },
+    {
+      "code": 6019,
+      "name": "allowListPriceAndMaxClaimsRequired",
+      "msg": "Allow list price and max claims are required for allow list mint"
+    },
+    {
+      "code": 6020,
+      "name": "invalidMerkleProof",
+      "msg": "Invalid merkle proof"
+    },
+    {
+      "code": 6021,
+      "name": "exceededAllowListMaxClaims",
+      "msg": "This wallet has exceeded allow list max_claims in the current phase"
+    },
+    {
+      "code": 6022,
+      "name": "phaseNotActive",
+      "msg": "Phase not active"
+    },
+    {
+      "code": 6023,
+      "name": "phaseNotStarted",
+      "msg": "Phase not yet started"
+    },
+    {
+      "code": 6024,
+      "name": "phaseAlreadyFinished",
+      "msg": "Phase already finished"
+    },
+    {
+      "code": 6025,
+      "name": "exceededMaxMintsForPhase",
+      "msg": "Exceeded max mints for this phase"
+    },
+    {
+      "code": 6026,
+      "name": "exceededWalletMaxMintsForPhase",
+      "msg": "Exceeded wallet max mints for this phase"
+    },
+    {
+      "code": 6027,
+      "name": "exceededWalletMaxMintsForCollection",
+      "msg": "Exceeded wallet max mints for the collection"
     }
   ],
   "types": [
@@ -1997,15 +2156,6 @@ export const IDL: LibreplexEditionsControls = {
             }
           },
           {
-            "name": "padding",
-            "type": {
-              "array": [
-                "u8",
-                200
-              ]
-            }
-          },
-          {
             "name": "phases",
             "type": {
               "vec": {
@@ -2013,6 +2163,15 @@ export const IDL: LibreplexEditionsControls = {
                   "name": "phase"
                 }
               }
+            }
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u8",
+                200
+              ]
             }
           }
         ]
@@ -2179,6 +2338,17 @@ export const IDL: LibreplexEditionsControls = {
           {
             "name": "endTime",
             "type": "i64"
+          },
+          {
+            "name": "merkleRoot",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  32
+                ]
+              }
+            }
           }
         ]
       }
@@ -2191,6 +2361,31 @@ export const IDL: LibreplexEditionsControls = {
           {
             "name": "phaseIndex",
             "type": "u32"
+          },
+          {
+            "name": "merkleProof",
+            "type": {
+              "option": {
+                "vec": {
+                  "array": [
+                    "u8",
+                    32
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "name": "allowListPrice",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "allowListMaxClaims",
+            "type": {
+              "option": "u64"
+            }
           }
         ]
       }
@@ -2256,6 +2451,17 @@ export const IDL: LibreplexEditionsControls = {
           {
             "name": "currentMints",
             "type": "u64"
+          },
+          {
+            "name": "merkleRoot",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  32
+                ]
+              }
+            }
           },
           {
             "name": "padding",
