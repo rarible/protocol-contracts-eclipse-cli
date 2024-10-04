@@ -21,7 +21,6 @@ export function getProgramInstanceEditions(
   const idl = IDL;
   const program = new anchor.Program<LibreplexEditions>(
     idl,
-    PROGRAM_ID_EDITIONS,
     provider
   )!;
   return program;

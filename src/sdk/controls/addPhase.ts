@@ -63,7 +63,7 @@ export const addPhase = async ({
 
         }
       )
-      .accounts({
+      .accountsStrict({
         editionsControls: controls,
         creator: wallet.publicKey,
         payer: wallet.publicKey,

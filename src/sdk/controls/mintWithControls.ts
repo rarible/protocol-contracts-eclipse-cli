@@ -12,6 +12,7 @@ import BN from "bn.js";
 import {
   TOKEN_2022_PROGRAM_ID,
   getAssociatedTokenAddressSync,
+  ASSOCIATED_TOKEN_PROGRAM_ID
 } from "spl-token-4";
 import { getProgramInstanceEditions } from "../../anchor/editions/getProgramInstanceEditions";
 import { getEditionsPda } from "../../anchor/editions/pdas/getEditionsPda";
@@ -112,6 +113,7 @@ export const mintWithControls = async ({
         TOKEN_2022_PROGRAM_ID
       );
 
+      console.log("platformFeeRecipients", JSON.stringify(editionsControlsObj.item.platformFeeRecipients));
       const hashlistMarker = getHashlistMarkerPda(editions, mint.publicKey)[0];
 
       instructions.push(
@@ -119,7 +121,7 @@ export const mintWithControls = async ({
           .mintWithControls({
             phaseIndex,
           })
-          .accounts({
+          .accountsStrict({
             editionsDeployment: editions,
             editionsControls: editionsControlsPda,
             hashlist,
@@ -132,12 +134,16 @@ export const mintWithControls = async ({
             minterStats,
             minterStatsPhase,
             group: editionsObj.item.group,
+            groupMint: editionsObj.item.groupMint,
+            platformFeeRecipient1: editionsControlsObj.item.platformFeeRecipients[0].address,
             groupExtensionProgram: PROGRAM_ID_GROUP_EXTENSIONS,
             tokenAccount,
             treasury: editionsControlsObj.item.treasury,
             systemProgram: SystemProgram.programId,
             tokenProgram: TOKEN_2022_PROGRAM_ID,
             libreplexEditionsProgram: libreplexEditionsProgram.programId,
+            associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
+            
           })
           .signers([mint, member])
           .instruction()

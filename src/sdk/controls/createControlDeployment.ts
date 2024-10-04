@@ -5,6 +5,7 @@ import {
   Transaction,
   TransactionInstruction,
   PublicKey,
+  ComputeBudgetProgram,
 } from "@solana/web3.js";
 import BN from "bn.js";
 
@@ -18,6 +19,28 @@ import { getProgramInstanceEditionsControls } from "anchor/controls/getProgramIn
 import { getEditionsControlsPda } from "anchor/controls/pdas/getEditionsControlsPda";
 import { PROGRAM_ID_GROUP_EXTENSIONS } from "sdk/editions/createDeployment";
 
+export interface CreatorWithShare {
+  address: PublicKey;
+  share: number;
+}
+
+export interface MetadataField {
+  field: string;
+  value: string;
+}
+
+export interface UpdateRoyaltiesArgs {
+  royaltyBasisPoints: number; // Note the camelCase field name
+  creators: CreatorWithShare[];
+}
+
+// New interface for platform fee arguments
+export interface UpdatePlatformFeeArgs {
+  platformFeeValue: BN;
+  recipients: CreatorWithShare[];
+  isFeeFlat: boolean;
+}
+
 export interface IInitializeLaunch {
   symbol: string;
   jsonUrl: string;
@@ -25,6 +48,12 @@ export interface IInitializeLaunch {
   name: string;
   maxMintsPerWallet: number; // set to 0 for unlimited
   maxNumberOfTokens: number; // set to 0 for unlimited
+  royalties: UpdateRoyaltiesArgs; // royalties info (basis points and creators)
+  platformFee: UpdatePlatformFeeArgs; // platform fee info
+  extraMeta: MetadataField[]; // array of extra metadata fields
+  itemBaseUri: string; // URI for item base metadata
+  itemName: string; // Name for each item
+  cosignerProgramId?: PublicKey | null; // Optional cosigner program
 }
 
 export const createDeployment = async ({
@@ -38,14 +67,19 @@ export const createDeployment = async ({
     treasury,
     maxMintsPerWallet,
     maxNumberOfTokens,
-    name
+    name,
+    royalties,
+    platformFee, // Destructure platformFee from params
+    extraMeta,
+    itemBaseUri,
+    itemName,
+    cosignerProgramId,
   } = params;
 
   const editionsControlsProgram = getProgramInstanceEditionsControls(connection);
 
   const editions = getEditionsPda(symbol);
-
-  const editionsControls = getEditionsControlsPda(editions)
+  const editionsControls = getEditionsControlsPda(editions);
 
   const groupMint = Keypair.generate();
   const group = Keypair.generate();
@@ -55,21 +89,50 @@ export const createDeployment = async ({
 
   const libreplexEditionsProgram = getProgramInstanceEditions(connection);
   const instructions: TransactionInstruction[] = [];
-  /// creates an open editions launch
+
+  // Ensure creators' addresses are PublicKey instances for royalties
+  const royaltyCreatorsWithPublicKeys = royalties.creators.map((creator) => ({
+    address: new PublicKey(creator.address),
+    share: creator.share,
+  }));
+
+  // Prepare the royalties object with camelCase field names
+  const royaltiesArgs = {
+    royaltyBasisPoints: royalties.royaltyBasisPoints,
+    creators: royaltyCreatorsWithPublicKeys,
+  };
+
+  // Ensure recipients' addresses are PublicKey instances for platform fee
+  const platformFeeRecipientsWithPublicKeys = platformFee.recipients.map((recipient) => ({
+    address: new PublicKey(recipient.address),
+    share: recipient.share,
+  }));
+
+  // Prepare the platform fee object with platformFeeValue as BN
+  const platformFeeArgs = {
+    platformFeeValue: new BN(platformFee.platformFeeValue), // Convert to BN
+    recipients: platformFeeRecipientsWithPublicKeys,
+    isFeeFlat: platformFee.isFeeFlat,
+  };
+
+  // Creates an open editions launch with extra metadata, royalties, and platform fee
   instructions.push(
     await editionsControlsProgram.methods
-      .initialiseEditionsControls(
-        {
-          maxNumberOfTokens: new BN(maxNumberOfTokens),
-          symbol,
-          name,
-          offchainUrl: jsonUrl, // this points to ERC721 compliant JSON metadata
-          cosignerProgramId: null,
-          treasury: new PublicKey(treasury),
-          maxMintsPerWallet: new BN(maxMintsPerWallet),
-        }
-      )
-      .accounts({
+      .initialiseEditionsControls({
+        maxMintsPerWallet: new BN(maxMintsPerWallet),
+        treasury: new PublicKey(treasury),
+        maxNumberOfTokens: new BN(maxNumberOfTokens),
+        symbol,
+        name,
+        offchainUrl: jsonUrl,
+        cosignerProgramId: cosignerProgramId ?? null,
+        royalties: royaltiesArgs,
+        platformFee: platformFeeArgs, // Pass the platform fee arguments
+        extraMeta,
+        itemBaseUri,
+        itemName,
+      })
+      .accountsStrict({
         editionsControls,
         editionsDeployment: editions,
         hashlist,
@@ -86,13 +149,19 @@ export const createDeployment = async ({
       .instruction()
   );
 
-  // transaction boilerplate - ignore for now
-  const tx = new Transaction().add(...instructions);
+  // Modify compute units for the transaction
+  const modifyComputeUnits = ComputeBudgetProgram.setComputeUnitLimit({
+    units: 800000,
+  });
+
+  // Transaction setup
+  const tx = new Transaction().add(modifyComputeUnits).add(...instructions);
   tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
   tx.feePayer = wallet.publicKey;
   tx.sign(groupMint, group);
   await wallet.signTransaction(tx);
 
+  // Send transaction
   const txid = await sendSignedTransaction({
     signedTransaction: tx,
     connection,
