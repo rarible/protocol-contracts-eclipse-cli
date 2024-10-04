@@ -1,6 +1,4 @@
 import {
-  Connection,
-  Keypair,
   SystemProgram,
   Transaction,
   TransactionInstruction,
@@ -44,7 +42,6 @@ export const addPhase = async ({
 
   const libreplexEditionsProgram = getProgramInstanceEditions(connection);
   const instructions: TransactionInstruction[] = [];
-  /// creates an open editions launch
 
   const controls = getEditionsControlsPda(new PublicKey(deploymentId))
 

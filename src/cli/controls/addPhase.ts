@@ -4,6 +4,7 @@ import { Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { createDeployment } from "../../sdk/controls/createControlDeployment";
 import { Wallet as AnchorWallet, Program } from "@coral-xyz/anchor";
 import fs from "fs";
+import path from "path";
 import { Command } from "commander";
 import { LibreWallet } from "../../anchor/LibreWallet";
 import { addPhase } from "sdk/controls/addPhase";
@@ -21,7 +22,7 @@ cli
   .requiredOption("--maxMintsPerWallet <maxMintsPerWallet>", "Max mints per wallet (total), 0 for unlimited")
   .requiredOption("--maxMintsTotal <maxMintsTotal>", "Max mints per phase (total across all wallets), 0 for unlimited")
   .requiredOption("--priceAmount <priceAmount>", "Price per mint in lamports, can be 0")
-  .option("-m, --merkleRoot <merkleRoot>", "Merkle root to include in allowlist")
+  .option("-m, --merkleRoot <merkleRootPath>", "Path to JSON file containing merkle root")
   .parse(process.argv);
 
 const opts = cli.opts();
@@ -33,7 +34,12 @@ const opts = cli.opts();
   const signerKeypair = Keypair.fromSecretKey(new Uint8Array(keyfile));
   const wallet = new LibreWallet(signerKeypair);
   
-  console.log(opts)
+  let merkleRoot = null;
+  if (opts.merkleRoot) {
+    const merkleData = JSON.parse(fs.readFileSync(path.resolve(opts.merkleRoot), "utf8"));
+    merkleRoot = merkleData.merkle_root;
+  }
+
   try {
     const {txid} = await addPhase({
       wallet,
@@ -44,7 +50,7 @@ const opts = cli.opts();
         deploymentId: opts.deploymentId,
         startTime: opts.startTime ? +opts.startTime : null,
         endTime: opts.endTime ? +opts.endTime : null,
-        merkleRoot: opts.merkleRoot ? JSON.parse(opts.merkleRoot) : null
+        merkleRoot: merkleRoot
       },
       connection,
     });
