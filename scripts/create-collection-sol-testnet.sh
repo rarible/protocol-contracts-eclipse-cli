@@ -3,7 +3,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   -t BTicWgGhoTsBANuirXS7UCeF6bxfvTnCaxM5HQRRfGZS \
   -k ~/.config/solana/id.json \
   -r https://api.devnet.solana.com \
-  -s GRLT38 \
+  -s GRLT40 \
   --maxNumberOfTokens 1150 \
   --maxMintsPerWallet 100 \
   -j "ipfs://QmbsXNSkPUtYNmKfYw1mUSVuz9QU8nhu7YvzM1aAQsv6xw/0" \
@@ -19,7 +19,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
 
 
 
-npx ts-node ./src/cli/controls/addPhase.ts -d AmqfVpkT986fqy3q9PbdXKfBpUwg3ikS2ij1AEDVBvb -k ~/.config/solana/id.json -r https://api.devnet.solana.com  --maxMintsPerWallet 100 --maxMintsTotal 1150 --priceAmount 0 -s 1709564319 -e 1959564319
+npx ts-node ./src/cli/controls/addPhase.ts -d AmqfVpkT986fqy3q9PbdXKfBpUwg3ikS2ij1AEDVBvb -k ~/.config/solana/id.json -r https://api.devnet.solana.com  --maxMintsPerWallet 100 --maxMintsTotal 1150 --priceAmount 5000 -s 1709564319 -e 1959564319
 
 
 npx ts-node ./src/cli/controls/mintWithControls.ts -d AmqfVpkT986fqy3q9PbdXKfBpUwg3ikS2ij1AEDVBvb -k ~/.config/solana/id.json -r https://api.devnet.solana.com  -p 0 -n 1
