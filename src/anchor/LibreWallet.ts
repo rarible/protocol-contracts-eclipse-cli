@@ -18,6 +18,8 @@ export class LibreWallet implements AnchorWallet {
       return t;
     });
   }
+  
+  async init(): Promise<void> {}
 
   get publicKey(): PublicKey {
     return this.payer.publicKey;

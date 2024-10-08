@@ -7,6 +7,8 @@ import fs from "fs";
 import { Command } from "commander";
 import { LibreWallet } from "../../anchor/LibreWallet";
 import { addPhase } from "sdk/controls/addPhase";
+import { LedgerWallet } from "anchor/LedgerWallet";
+import { getWallet } from "anchor/utils";
 
 const cli = new Command();
 
@@ -21,19 +23,17 @@ cli
   .requiredOption("--maxMintsPerWallet <maxMintsPerWallet>", "Max mints per wallet (total), 0 for unlimited")
   .requiredOption("--maxMintsTotal <maxMintsTotal>", "Max mints per phase (total across all wallets), 0 for unlimited")
   .requiredOption("--priceAmount <priceAmount>", "Price per mint in lamports, can be 0")
- 
+  .option("--ledger", "if you want to use ledger pass true")
   .parse(process.argv);
 
 const opts = cli.opts();
 
 (async () => {
   const connection = new Connection(opts.rpc);
-  const keyfile = JSON.parse(fs.readFileSync(opts.keypairPath, "utf8"));
-
-  const signerKeypair = Keypair.fromSecretKey(new Uint8Array(keyfile));
-  const wallet = new LibreWallet(signerKeypair);
   
   console.log(opts)
+  const wallet = await getWallet(opts.ledger, opts.keypairPath);
+  console.log("pubkey", wallet.publicKey);
   try {
     const {txid} = await addPhase({
       wallet,

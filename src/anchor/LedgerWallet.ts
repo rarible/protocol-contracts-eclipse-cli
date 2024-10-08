@@ -5,6 +5,7 @@ import {
   VersionedTransaction,
   TransactionMessage,
   MessageV0,
+  Keypair,
 } from "@solana/web3.js";
 import TransportNodeHid from "@ledgerhq/hw-transport-node-hid";
 import AppSolana from "@ledgerhq/hw-app-solana";
@@ -18,6 +19,7 @@ export class LedgerWallet implements AnchorWallet {
     this.derivationPath = "44'/501'/0'/0'";
     // Initialization will be done in the init() method
   }
+    payer: Keypair;
 
   /**
    * Initializes the connection to the Ledger device and retrieves the public key.

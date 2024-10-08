@@ -7,6 +7,7 @@ import { decodeEditions } from "../../anchor/editions/accounts";
 import { getProgramInstanceEditions } from "../../anchor/editions/getProgramInstanceEditions";
 import { LibreWallet } from "../../anchor/LibreWallet";
 import { mintWithControls } from "sdk/controls/mintWithControls";
+import { getWallet } from "anchor/utils";
 
 const cli = new Command();
 
@@ -18,6 +19,7 @@ cli
   .requiredOption("-r, --rpc <rpc>", "RPC")
   .requiredOption("-p, --phaseIndex <phaseIndex>", "Phase index")
   .requiredOption("-n, --numberOfMints <numberOfMints>", "Number of mints")
+  .option("--ledger", "if you want to use ledger pass true")
   .parse(process.argv);
 // get all fair launches
 
@@ -28,12 +30,9 @@ const opts = cli.opts();
 
   const connection = new Connection(opts.rpc);
 
-  const keyfile = JSON.parse(fs.readFileSync(opts.keypairPath, "utf8"));
-
-  const signerKeypair = Keypair.fromSecretKey(new Uint8Array(keyfile));
-
+  const wallet = await getWallet(opts.ledger, opts.keypairPath);
   await mintWithControls({
-    wallet: new LibreWallet(signerKeypair),
+    wallet: wallet,
     params: {
       editionsId: opts.deploymentId,
       phaseIndex: +opts.phaseIndex,

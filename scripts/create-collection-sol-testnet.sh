@@ -3,7 +3,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   -t BTicWgGhoTsBANuirXS7UCeF6bxfvTnCaxM5HQRRfGZS \
   -k ~/.config/solana/id.json \
   -r https://api.devnet.solana.com \
-  -s GRLT40 \
+  -s GRLT43 \
   --maxNumberOfTokens 1150 \
   --maxMintsPerWallet 100 \
   -j "ipfs://QmbsXNSkPUtYNmKfYw1mUSVuz9QU8nhu7YvzM1aAQsv6xw/0" \
@@ -15,15 +15,27 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   --isFeeFlat \
   --extraMeta "field1:value1" "field2:value2" "field3:value3" "field4:value4" \
   --itemBaseUri "ipfs://QmbsXNSkPUtYNmKfYw1mUSVuz9QU8nhu7YvzM1aAQsv6xw/{}" \
-  --itemName "Item T8 V4 #{}"
+  --itemName "Item T8 V4 #{}" \
+  --ledger true
 
+npx ts-node ./src/cli/controls/addPhase.ts \
+  -d 5MDhwFEQqRwsG4NZMT7rBbhXiiwDM3Hku3jj4VqZFSHV \
+  -k ~/.config/solana/id.json \
+  -r https://api.devnet.solana.com \
+   --maxMintsPerWallet 100 \
+  --maxMintsTotal 1150  \
+  --priceAmount 5000 \
+  -s 1709564319 \ 
+  -e 1959564319 \
+  --ledger true
 
-
-npx ts-node ./src/cli/controls/addPhase.ts -d AmqfVpkT986fqy3q9PbdXKfBpUwg3ikS2ij1AEDVBvb -k ~/.config/solana/id.json -r https://api.devnet.solana.com  --maxMintsPerWallet 100 --maxMintsTotal 1150 --priceAmount 5000 -s 1709564319 -e 1959564319
-
-
-npx ts-node ./src/cli/controls/mintWithControls.ts -d AmqfVpkT986fqy3q9PbdXKfBpUwg3ikS2ij1AEDVBvb -k ~/.config/solana/id.json -r https://api.devnet.solana.com  -p 0 -n 1
-
+npx ts-node ./src/cli/controls/mintWithControls.ts \
+  -d 5MDhwFEQqRwsG4NZMT7rBbhXiiwDM3Hku3jj4VqZFSHV \
+  -k ~/.config/solana/id.json \
+  -r https://api.devnet.solana.com \
+  -p 0 \
+  -n 1 \
+  --ledger true
 
 # modify royalties
 
