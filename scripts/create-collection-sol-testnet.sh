@@ -1,17 +1,17 @@
 
 npx ts-node ./src/cli/controls/createDeployment.ts \
-  -t BTicWgGhoTsBANuirXS7UCeF6bxfvTnCaxM5HQRRfGZS \
+  -t 4yyE2cWHJTU5cu8pem2ApVnHRDGHYvsPvsFCM2WeCPG2 \
   -k ~/.config/solana/id.json \
   -r https://api.devnet.solana.com \
-  -s GRLT43 \
+  -s GRLT44 \
   --maxNumberOfTokens 1150 \
   --maxMintsPerWallet 100 \
   -j "ipfs://QmbsXNSkPUtYNmKfYw1mUSVuz9QU8nhu7YvzM1aAQsv6xw/0" \
   -n "Collection name with meta, platform fee and royalties" \
-  --creators 674s1Sap3KVnr8WGrY5KGQ69oTYjjgr1disKJo6GpTYw:50 QjzRL6VwKGnpco8wx3cPjtq8ZPhewy7ohq7F5mv2eeR:50 \
+  --creators 4yyE2cWHJTU5cu8pem2ApVnHRDGHYvsPvsFCM2WeCPG2:100 \
   --royaltyBasisPoints 1000 \
   --platformFeeValue 500000 \
-  --platformFeeRecipients 674s1Sap3KVnr8WGrY5KGQ69oTYjjgr1disKJo6GpTYw:100 \
+  --platformFeeRecipients 4yyE2cWHJTU5cu8pem2ApVnHRDGHYvsPvsFCM2WeCPG2:100 \
   --isFeeFlat \
   --extraMeta "field1:value1" "field2:value2" "field3:value3" "field4:value4" \
   --itemBaseUri "ipfs://QmbsXNSkPUtYNmKfYw1mUSVuz9QU8nhu7YvzM1aAQsv6xw/{}" \

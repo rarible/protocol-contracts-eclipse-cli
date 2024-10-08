@@ -16,8 +16,13 @@ export class LedgerWallet implements AnchorWallet {
   public publicKey: PublicKey;
 
   constructor() {
-    this.derivationPath = "44'/501'/0'/0'";
+    this.derivationPath = "44'/501'";
     // Initialization will be done in the init() method
+    // this.derivationPath = "44'/501'/0'/0'";
+    // 9M5fNp65vzp3MqkwPFU95WvnuPfpefwe3HbT1E1MZGTx
+
+    // this.derivationPath = "44'/501'";
+    // 674s1Sap3KVnr8WGrY5KGQ69oTYjjgr1disKJo6GpTYw
   }
     payer: Keypair;
 
