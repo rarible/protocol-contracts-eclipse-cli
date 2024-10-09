@@ -72,7 +72,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   -k ~/.config/solana/id.json \
   -r https://mainnetbeta-rpc.eclipse.xyz \
   -s CAT1 \
-  --maxNumberOfTokens 1150 \
+  --maxNumberOfTokens 1000 \
   --maxMintsPerWallet 100 \
   -j "ipfs://QmfJh4B8KySR1KHaXRNWkcDBn67ZuJkzAyaVCWAS8Kcezc/0" \
   -n "Collection of Cats" \
@@ -87,21 +87,6 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   --ledger true
 
 
-npx ts-node ./src/cli/controls/addPhase.ts \
-  -d 5MDhwFEQqRwsG4NZMT7rBbhXiiwDM3Hku3jj4VqZFSHV \
-  -k ~/.config/solana/id.json \
-  -r https://mainnetbeta-rpc.eclipse.xyz \
-   --maxMintsPerWallet 100 \
-  --maxMintsTotal 1000  \
-  --priceAmount 500 \
-  -s 1709564319 \ 
-  -e 1959564319 \
-  --ledger true
+npx ts-node ./src/cli/controls/addPhase.ts -d 8QLcfQhPHUVoQbjxHRjvcd583ZRuJWLffypqnzzj3ci2 -k ~/.config/solana/id.json -r https://mainnetbeta-rpc.eclipse.xyz --maxMintsPerWallet 100 --maxMintsTotal 1000 --priceAmount 500 -s 1709564319 -e 1959564319 --ledger true
 
-npx ts-node ./src/cli/controls/mintWithControls.ts \
-  -d 5MDhwFEQqRwsG4NZMT7rBbhXiiwDM3Hku3jj4VqZFSHV \
-  -k ~/.config/solana/id.json \
-  -r https://mainnetbeta-rpc.eclipse.xyz \
-  -p 0 \
-  -n 1 \
-  --ledger true
+npx ts-node ./src/cli/controls/mintWithControls.ts -d 8QLcfQhPHUVoQbjxHRjvcd583ZRuJWLffypqnzzj3ci2 -k ~/.config/solana/id.json -r https://mainnetbeta-rpc.eclipse.xyz -p 0 -n 1 --ledger true
