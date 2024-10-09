@@ -44,8 +44,6 @@ const opts = cli.opts();
         deploymentId: opts.deploymentId,
         startTime: opts.startTime ? +opts.startTime : undefined,
         endTime: opts.endTime ? +opts.endTime : undefined,
-         
-
       },
       connection,
     });
