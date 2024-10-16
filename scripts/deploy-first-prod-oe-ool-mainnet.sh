@@ -17,6 +17,6 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   --itemName "Over Open Land" \
   --ledger true
 
-npx ts-node ./src/cli/controls/addPhase.ts -d 8iHEUGSycmHcCDfBtZgNVgTm5WGgsRaiYxtDpnYMCAzq -k ~/.config/solana/id.json -r https://mainnetbeta-rpc.eclipse.xyz --maxMintsPerWallet 100 --maxMintsTotal 0 --priceAmount 0 -s 1729000800 -e 1729432800 --ledger true
+npx ts-node ./src/cli/controls/addPhase.ts -d 8iHEUGSycmHcCDfBtZgNVgTm5WGgsRaiYxtDpnYMCAzq -k ~/.config/solana/id.json -r https://mainnetbeta-rpc.eclipse.xyz --maxMintsPerWallet 100 --maxMintsTotal 0 --priceAmount 0 -s 1729173600 -e 1729778400 --ledger true
 
 npx ts-node ./src/cli/controls/mintWithControls.ts -d 8iHEUGSycmHcCDfBtZgNVgTm5WGgsRaiYxtDpnYMCAzq -k ~/.config/solana/id.json -r https://mainnetbeta-rpc.eclipse.xyz -p 0 -n 1 --ledger true
