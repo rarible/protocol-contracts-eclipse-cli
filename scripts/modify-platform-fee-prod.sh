@@ -1,8 +1,8 @@
 #!/bin/bash
 
 KEYPAIR_PATH="$HOME/.config/solana/id.json"
-RPC_URL="https://testnet.dev2.eclipsenetwork.xyz"
-DEPLOYMENT_ID="BSDDZrGVGQZWsa46RQxxfkfubuLcdrPnyrhLfpwYzZTu"
+RPC_URL="https://mainnetbeta-rpc.eclipse.xyz"
+DEPLOYMENT_ID="6wBjjwmWAZzuzAYt9N7EbhPsthE6m2LStNAxZUbViqQb"
 PLATFORM_FEE_VALUE=818300
 IS_FEE_FLAT=true
 RECIPIENTS="AsSKqK7CkxFUf3KaoQzzr8ZLPm5fFguUtVE5QwGALQQn:100"
