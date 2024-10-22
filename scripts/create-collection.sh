@@ -2,7 +2,7 @@
 
 ##### 111
 
-npx ts-node ./src/cli/controls/createDeployment.ts -t BTicWgGhoTsBANuirXS7UCeF6bxfvTnCaxM5HQRRfGZS -k ~/.config/solana/id.json -r https://testnet.dev2.eclipsenetwork.xyz -s GRLT3 --maxNumberOfTokens 1150 --maxMintsPerWallet 100 -j "ipfs://QmbsXNSkPUtYNmKfYw1mUSVuz9QU8nhu7YvzM1aAQsv6xw/{}" -n "Test Collection Meta: {}"
+npx ts-node ./src/cli/controls/createDeployment.ts -t BTicWgGhoTsBANuirXS7UCeF6bxfvTnCaxM5HQRRfGZS -k ~/.config/solana/id.json -r https://testnet.dev2.eclipsenetwork.xyz -s GRLT3 --maxNumberOfTokens 1150 --maxMintsPerWallet 100 -u "ipfs://QmbsXNSkPUtYNmKfYw1mUSVuz9QU8nhu7YvzM1aAQsv6xw/{}" -n "Test Collection Meta: {}"
 
 
 ##### 222

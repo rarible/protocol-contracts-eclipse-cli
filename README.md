@@ -22,7 +22,7 @@ Create a deployment with symbol "eee" and json https://www.google.com on solana 
 Also please make sure you have some SOL in the account to cover rent costs.
 
 ```bash
-yarn createDeployment -k ~/.config/solana/id.json -s eee -j https://www.google.com -r https://api.mainnet-beta.solana.com
+yarn createDeployment -k ~/.config/solana/id.json -s eee -u https://www.google.com -r https://api.mainnet-beta.solana.com
 ```
 Note down the address id of your collection.
 

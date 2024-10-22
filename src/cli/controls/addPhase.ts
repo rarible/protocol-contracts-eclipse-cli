@@ -18,7 +18,8 @@ cli
   .requiredOption("--maxMintsPerWallet <maxMintsPerWallet>", "Max mints per wallet (total), 0 for unlimited")
   .requiredOption("--maxMintsTotal <maxMintsTotal>", "Max mints per phase (total across all wallets), 0 for unlimited")
   .requiredOption("--priceAmount <priceAmount>", "Price per mint in lamports, can be 0")
-  .option("-m, --merkleRoot <merkleRootPath>", "Path to JSON file containing merkle root")
+  .option("-m, --merkleRootPath <merkleRootPath>", "Path to JSON file containing merkle root")
+  .option("-p, --isPrivate <isPrivate>", "If true, the phase will be allow-list only")
   .option("--ledger", "if you want to use ledger pass true")
   .parse(process.argv);
 
@@ -26,16 +27,35 @@ const opts = cli.opts();
 
 (async () => {
   const connection = new Connection(opts.rpc);
-  
+  console.log("Connection to RPC:", opts.rpc);
+  // get merkle root from the provided path
   let merkleRoot = null;
-  if (opts.merkleRoot) {
-    const merkleData = JSON.parse(fs.readFileSync(path.resolve(opts.merkleRoot), "utf8"));
+  if (opts.merkleRootPath) {
+    const merkleData = JSON.parse(fs.readFileSync(path.resolve(opts.merkleRootPath), "utf8"));
     merkleRoot = merkleData.merkle_root;
+  }
+  // if the phase is private, merkle root is required
+  if (opts.isPrivate) {
+    if (!merkleRoot) {
+      throw new Error("Merkle root is required for private phase");
+    }
   }
 
   const wallet = await getWallet(opts.ledger, opts.keypairPath);
 
   try {
+    console.log("Adding phase...")
+
+    console.log("params", {
+      maxMintsPerWallet: +opts.maxMintsPerWallet,
+      priceAmount: +opts.priceAmount,
+      maxMintsTotal: +opts.maxMintsTotal,
+      deploymentId: opts.deploymentId,
+      startTime: opts.startTime ? +opts.startTime : null,
+      endTime: opts.endTime ? +opts.endTime : null,
+      merkleRoot: merkleRoot ? merkleRoot : null,
+      isPrivate: opts.isPrivate ? true : false
+    })
     const {txid} = await addPhase({
       wallet,
       params: {
@@ -45,7 +65,8 @@ const opts = cli.opts();
         deploymentId: opts.deploymentId,
         startTime: opts.startTime ? +opts.startTime : null,
         endTime: opts.endTime ? +opts.endTime : null,
-        merkleRoot: merkleRoot
+        merkleRoot: merkleRoot ? merkleRoot : null,
+        isPrivate: opts.isPrivate ? true : false
       },
       connection,
     });

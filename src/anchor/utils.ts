@@ -8,6 +8,9 @@ import * as fs from "fs";
  * @returns A wallet instance of either LibreWallet or LedgerWallet.
  */
 export async function getWallet(isLedger: boolean = false, keypairPath: string = ""): Promise<LibreWallet | LedgerWallet> {
+
+  console.log("getWallet", isLedger, keypairPath);
+  
   let walletType = process.env.WALLET_TYPE;
   if(isLedger) {
     walletType = "ledger";
@@ -18,6 +21,7 @@ export async function getWallet(isLedger: boolean = false, keypairPath: string =
 
   if (walletType === "keypair") {
     // Load the keypair from the file
+    console.log("using keypairPath", keypairPath);
     if (keypairPath.length == 0) {
       keypairPath = process.env.KEYPAIR_PATH;
     }

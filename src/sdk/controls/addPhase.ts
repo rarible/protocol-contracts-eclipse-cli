@@ -20,7 +20,8 @@ export interface IAddPhase {
   deploymentId: string,
   startTime: number | undefined,
   endTime: number | undefined,
-  merkleRoot?: number[];
+  merkleRoot?: number[],
+  isPrivate?: boolean
 }
 
 export const addPhase = async ({
@@ -35,17 +36,23 @@ export const addPhase = async ({
     maxMintsPerWallet,
     startTime,
     endTime,
-    merkleRoot
+    merkleRoot,
+    isPrivate
   } = params;
 
   const editionProgram = getProgramInstanceEditionsControls(connection);
 
   const libreplexEditionsProgram = getProgramInstanceEditions(connection);
+
+  console.log("jey")
   const instructions: TransactionInstruction[] = [];
 
   const controls = getEditionsControlsPda(new PublicKey(deploymentId))
 
+  
+
   console.log(`Creating phase with start time ${startTime}, end time ${endTime}`);
+  
   instructions.push(
     await editionProgram.methods
       .addPhase(
@@ -57,7 +64,8 @@ export const addPhase = async ({
           maxMintsTotal: new BN(maxMintsTotal),
           /// max i64 value - this is open ended
           endTime: endTime !== undefined ? new BN(endTime) : new BN(9007199254740991),
-          merkleRoot: merkleRoot
+          merkleRoot: merkleRoot,
+          isPrivate: isPrivate
         }
       )
       .accountsStrict({

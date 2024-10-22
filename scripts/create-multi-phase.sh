@@ -5,7 +5,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   -s CAT1 \
   --maxNumberOfTokens 1000 \
   --maxMintsPerWallet 100 \
-  -j "ipfs://QmfJh4B8KySR1KHaXRNWkcDBn67ZuJkzAyaVCWAS8Kcezc/0" \
+  -u "ipfs://QmfJh4B8KySR1KHaXRNWkcDBn67ZuJkzAyaVCWAS8Kcezc/0" \
   -n "Collection of Cats" \
   --creators J5xffSinbAQw65TsphSZ8gfaNGAPEfNWL9wwzGNdm3PR:100 \
   --royaltyBasisPoints 1000 \
@@ -14,7 +14,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   --isFeeFlat \
   --extraMeta "type:handmade" "author:Vadim" "value:important" \
   --itemBaseUri "ipfs://QmdHaufjUDJgbZzZ4eFCjtJQyeQpuNwoEvqLm5rq159vC8/{}" \
-  --itemName "Eclipse Cat #{}"
+  --itemBaseName "Eclipse Cat #{}"
 
 npx ts-node ./src/cli/controls/addPhase.ts \
   -d EW9aJXUoTaqe5yqLWnkiRFPiT9oiueMqfxyKkMo6s2sy \
