@@ -114,7 +114,6 @@ export const mintWithControls = async ({
         TOKEN_2022_PROGRAM_ID
       );
 
-      console.log("platformFeeRecipients", JSON.stringify(editionsControlsObj.item.platformFeeRecipients));
       const hashlistMarker = getHashlistMarkerPda(editions, mint.publicKey)[0];
 
       instructions.push(

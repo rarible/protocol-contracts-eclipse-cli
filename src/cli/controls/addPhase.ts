@@ -27,7 +27,7 @@ const opts = cli.opts();
 
 (async () => {
   const connection = new Connection(opts.rpc);
-  console.log("Connection to RPC:", opts.rpc);
+
   // get merkle root from the provided path
   let merkleRoot = null;
   if (opts.merkleRootPath) {
@@ -44,18 +44,6 @@ const opts = cli.opts();
   const wallet = await getWallet(opts.ledger, opts.keypairPath);
 
   try {
-    console.log("Adding phase...")
-
-    console.log("params", {
-      maxMintsPerWallet: +opts.maxMintsPerWallet,
-      priceAmount: +opts.priceAmount,
-      maxMintsTotal: +opts.maxMintsTotal,
-      deploymentId: opts.deploymentId,
-      startTime: opts.startTime ? +opts.startTime : null,
-      endTime: opts.endTime ? +opts.endTime : null,
-      merkleRoot: merkleRoot ? merkleRoot : null,
-      isPrivate: opts.isPrivate ? true : false
-    })
     const {txid} = await addPhase({
       wallet,
       params: {

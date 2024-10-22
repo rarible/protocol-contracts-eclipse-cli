@@ -9,7 +9,6 @@ import { LibreplexEditionsControls } from "./libreplex_editions_controls";
 export type EditionsControls = IdlAccounts<LibreplexEditionsControls>["editionsControls"];
 
 export const getBase64FromDatabytes = (dataBytes: Buffer, dataType: string) => {
-  console.log({ dataBytes });
   const base = dataBytes.toString("base64");
   return `data:${dataType};base64,${base}`;
 };

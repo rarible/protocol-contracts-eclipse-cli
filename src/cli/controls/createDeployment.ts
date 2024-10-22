@@ -86,7 +86,6 @@ const opts = cli.opts();
     };
 
     // Create the deployment
-    console.log("Creating deployment...");
     const { editions, editionsControls } = await createDeployment({
       wallet,
       params: {

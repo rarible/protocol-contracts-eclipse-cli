@@ -44,14 +44,9 @@ export const addPhase = async ({
 
   const libreplexEditionsProgram = getProgramInstanceEditions(connection);
 
-  console.log("jey")
   const instructions: TransactionInstruction[] = [];
 
   const controls = getEditionsControlsPda(new PublicKey(deploymentId))
-
-  
-
-  console.log(`Creating phase with start time ${startTime}, end time ${endTime}`);
   
   instructions.push(
     await editionProgram.methods
