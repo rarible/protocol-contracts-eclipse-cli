@@ -3,7 +3,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   -t 4yyE2cWHJTU5cu8pem2ApVnHRDGHYvsPvsFCM2WeCPG2 \
   -k ~/.config/solana/id.json \
   -r https://api.devnet.solana.com \
-  -s TEST01 \
+  -s TEST02 \
   --maxNumberOfTokens 1150 \
   --maxMintsPerWallet 100 \
   -u "ipfs://QmbsXNSkPUtYNmKfYw1mUSVuz9QU8nhu7YvzM1aAQsv6xw/0" \
@@ -18,8 +18,8 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   --itemBaseName "Item T8 V4 #{}" 
 
 # create phase with allow list only
-npx ts-node ./src/cli/controls/addPhase.ts
-  -d 3Y8oZUHTsDPe83PjTo4CWYtpTrJY4hRykFKXcF6qtTfw \
+npx ts-node ./src/cli/controls/addPhase.ts \
+  -d 7jyfYPrT5zFbMZwgDUi6n9mL7MN6YbzciiZWovZSAnTb \
   -k ~/.config/solana/id.json \
   -r https://api.devnet.solana.com \
   --maxMintsPerWallet 100 \
@@ -32,7 +32,7 @@ npx ts-node ./src/cli/controls/addPhase.ts
 
 # create phase without allow list
 npx ts-node ./src/cli/controls/addPhase.ts \
-  -d 3Y8oZUHTsDPe83PjTo4CWYtpTrJY4hRykFKXcF6qtTfw \
+  -d 7jyfYPrT5zFbMZwgDUi6n9mL7MN6YbzciiZWovZSAnTb \
   -k ~/.config/solana/id.json \
   -r https://api.devnet.solana.com \
   --maxMintsPerWallet 100 \
@@ -43,31 +43,31 @@ npx ts-node ./src/cli/controls/addPhase.ts \
 
 # mint using allow list
 npx ts-node ./src/cli/controls/mintWithControls.ts \
-  -d 3Y8oZUHTsDPe83PjTo4CWYtpTrJY4hRykFKXcF6qtTfw \
+  -d 7jyfYPrT5zFbMZwgDUi6n9mL7MN6YbzciiZWovZSAnTb \
   -k ~/.config/solana/id.json \
   -r https://api.devnet.solana.com \
-  -p 0 \
+  -p 3 \
   -n 1 \
   -m ./src/cli/controls/input/input.json \
-  --allowListPrice 50000000 \
-  --allowListMaxClaims 5
+  --allowListPrice 100000 \
+  --allowListMaxClaims 12
 
 # mint without allow list
 npx ts-node ./src/cli/controls/mintWithControls.ts \
-  -d 3Y8oZUHTsDPe83PjTo4CWYtpTrJY4hRykFKXcF6qtTfw \
+  -d 7jyfYPrT5zFbMZwgDUi6n9mL7MN6YbzciiZWovZSAnTb \
   -k ~/.config/solana/id.json \
   -r https://api.devnet.solana.com \
-  -p 0 \
+  -p 2 \
   -n 1
 
 # view collection
 npx ts-node ./src/cli/core/viewDeployment.ts \
   -r https://api.devnet.solana.com \
-  -i 3Y8oZUHTsDPe83PjTo4CWYtpTrJY4hRykFKXcF6qtTfw
+  -i 7jyfYPrT5zFbMZwgDUi6n9mL7MN6YbzciiZWovZSAnTb
 
 # add phase with ledger
 npx ts-node ./src/cli/controls/addPhase.ts \
-  -d 3Y8oZUHTsDPe83PjTo4CWYtpTrJY4hRykFKXcF6qtTfw \
+  -d 7jyfYPrT5zFbMZwgDUi6n9mL7MN6YbzciiZWovZSAnTb \
   -k ~/.config/solana/id.json \
   -r https://api.devnet.solana.com \
   --maxMintsPerWallet 100 \
@@ -79,7 +79,7 @@ npx ts-node ./src/cli/controls/addPhase.ts \
 
 # mint with ledger
 npx ts-node ./src/cli/controls/mintWithControls.ts \
-  -d 3Y8oZUHTsDPe83PjTo4CWYtpTrJY4hRykFKXcF6qtTfw \
+  -d 7jyfYPrT5zFbMZwgDUi6n9mL7MN6YbzciiZWovZSAnTb \
   -k ~/.config/solana/id.json \
   -r https://api.devnet.solana.com \
   -p 0 \
