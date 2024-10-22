@@ -4,6 +4,7 @@ import { Command } from "commander";
 import fs from "fs";
 import { LibreWallet } from "../../anchor/LibreWallet";
 import { modifyRoyalties } from "../../sdk/controls/modifyRoyalties"; // Assuming your modifyRoyalties script is located here
+import { getWallet } from "anchor/utils";
 
 const cli = new Command();
 
@@ -18,6 +19,7 @@ cli
     "--creators <creators>",
     "List of creators and their shares in the format 'address:share,address:share' (e.g., '8YkPQFLXq23z7Xz1W4oS:50,FzPQA3drtY9xZGR:50')"
   )
+  .option("--ledger", "if you want to use ledger pass true")
   .parse(process.argv);
 
 const opts = cli.opts();
@@ -26,8 +28,7 @@ const opts = cli.opts();
   const connection = new Connection(opts.rpc);
 
   // Read the keypair file to create a wallet
-  const keyfile = JSON.parse(fs.readFileSync(opts.keypairPath, "utf8"));
-  const signerKeypair = Keypair.fromSecretKey(new Uint8Array(keyfile));
+  const wallet = await getWallet(opts.ledger, opts.keypairPath);
 
   // Parse the creators input (address:share pairs)
   const creators = opts.creators.split(",").map((creator: string) => {
@@ -40,7 +41,7 @@ const opts = cli.opts();
   try {
     // Call modifyRoyalties function to update royalties on-chain
     const { editions } = await modifyRoyalties({
-      wallet: new LibreWallet(signerKeypair),
+      wallet: wallet,
       params: {
         editionsId: opts.deploymentId,
         royaltyBasisPoints: Number(opts.royaltyBasisPoints),

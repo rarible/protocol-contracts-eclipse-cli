@@ -6,6 +6,7 @@ import fs from "fs";
 import { LibreWallet } from "../../anchor/LibreWallet";
 import { modifyPlatformFee } from "../../sdk/controls/modifyPlatformFee"; // Assuming your modifyPlatformFee script is located here
 import BN from "bn.js";
+import { getWallet } from "anchor/utils";
 
 const cli = new Command();
 
@@ -30,6 +31,7 @@ cli
     "--recipients <recipients>",
     "List of recipients and their shares in the format 'address:share,address:share' (e.g., '8YkPQFLXq23z7Xz1W4oS:50,FzPQA3drtY9xZGR:50')"
   )
+  .option("--ledger", "if you want to use ledger pass true")
   .parse(process.argv);
 
 const opts = cli.opts();
@@ -38,8 +40,7 @@ const opts = cli.opts();
   const connection = new Connection(opts.rpc);
 
   // Read the keypair file to create a wallet
-  const keyfile = JSON.parse(fs.readFileSync(opts.keypairPath, "utf8"));
-  const signerKeypair = Keypair.fromSecretKey(new Uint8Array(keyfile));
+  const wallet = await getWallet(opts.ledger, opts.keypairPath);
 
   // Parse the recipients input (address:share pairs)
   const recipients = opts.recipients.split(",").map((recipient: string) => {
@@ -61,7 +62,7 @@ const opts = cli.opts();
   try {
     // Call modifyPlatformFee function to update platform fee on-chain
     const { editions, txid } = await modifyPlatformFee({
-      wallet: new LibreWallet(signerKeypair),
+      wallet: wallet,
       params: {
         editionsId: opts.deploymentId,
         platformFeeValue,

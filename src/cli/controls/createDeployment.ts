@@ -4,6 +4,8 @@ import { LibreWallet } from "../../anchor/LibreWallet";
 import fs from "fs";
 import { Command } from "commander";
 import BN from "bn.js";
+import { LedgerWallet } from "anchor/LedgerWallet";
+import { getWallet } from "anchor/utils";
 
 // Define CLI options
 const cli = new Command();
@@ -28,6 +30,7 @@ cli
   .option("--isFeeFlat", "Indicate if the platform fee is a flat amount")
   .requiredOption("--platformFeeRecipients <platformFeeRecipients...>", "List of platform fee recipients in the format '<address>:<share>'")
   .requiredOption("-r, --rpc <rpc>", "RPC endpoint")
+  .option("--ledger", "if you want to use ledger pass true")
   .parse(process.argv);
 
 const opts = cli.opts();
@@ -37,10 +40,8 @@ const opts = cli.opts();
     // Setup connection to Solana RPC
     const connection = new Connection(opts.rpc);
 
-    // Load the keypair from the provided file path
-    const keyfile = JSON.parse(fs.readFileSync(opts.keypairPath, "utf8"));
-    const signerKeypair = Keypair.fromSecretKey(new Uint8Array(keyfile));
-    const wallet = new LibreWallet(signerKeypair);
+    const wallet = await getWallet(opts.ledger, opts.keypairPath);
+    console.log("pubkey", wallet.publicKey);
 
     // Parse creators input
     const creators = opts.creators.map((creator: string) => {

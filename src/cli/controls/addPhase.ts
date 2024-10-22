@@ -1,13 +1,9 @@
-export {};
-import { Connection, Keypair, PublicKey } from "@solana/web3.js";
-
-import { createDeployment } from "../../sdk/controls/createControlDeployment";
-import { Wallet as AnchorWallet, Program } from "@coral-xyz/anchor";
+import { Connection} from "@solana/web3.js";
 import fs from "fs";
 import path from "path";
 import { Command } from "commander";
-import { LibreWallet } from "../../anchor/LibreWallet";
 import { addPhase } from "sdk/controls/addPhase";
+import { getWallet } from "anchor/utils";
 
 const cli = new Command();
 
@@ -23,22 +19,21 @@ cli
   .requiredOption("--maxMintsTotal <maxMintsTotal>", "Max mints per phase (total across all wallets), 0 for unlimited")
   .requiredOption("--priceAmount <priceAmount>", "Price per mint in lamports, can be 0")
   .option("-m, --merkleRoot <merkleRootPath>", "Path to JSON file containing merkle root")
+  .option("--ledger", "if you want to use ledger pass true")
   .parse(process.argv);
 
 const opts = cli.opts();
 
 (async () => {
   const connection = new Connection(opts.rpc);
-  const keyfile = JSON.parse(fs.readFileSync(opts.keypairPath, "utf8"));
-
-  const signerKeypair = Keypair.fromSecretKey(new Uint8Array(keyfile));
-  const wallet = new LibreWallet(signerKeypair);
   
   let merkleRoot = null;
   if (opts.merkleRoot) {
     const merkleData = JSON.parse(fs.readFileSync(path.resolve(opts.merkleRoot), "utf8"));
     merkleRoot = merkleData.merkle_root;
   }
+
+  const wallet = await getWallet(opts.ledger, opts.keypairPath);
 
   try {
     const {txid} = await addPhase({
