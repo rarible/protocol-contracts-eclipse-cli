@@ -6,7 +6,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   -s OOL \
   --maxNumberOfTokens 0 \
   --maxMintsPerWallet 100 \
-  -j "ipfs://QmYFLidfYnAcWPUWT1XkimVN7KKrs1n7P76xwWaQGvMu8i" \
+  -u "ipfs://QmYFLidfYnAcWPUWT1XkimVN7KKrs1n7P76xwWaQGvMu8i" \
   -n "Over Open Land" \
   --creators J5xffSinbAQw65TsphSZ8gfaNGAPEfNWL9wwzGNdm3PR:100 \
   --royaltyBasisPoints 5000 \
@@ -14,7 +14,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   --platformFeeRecipients 4yyE2cWHJTU5cu8pem2ApVnHRDGHYvsPvsFCM2WeCPG2:100 \
   --isFeeFlat \
   --itemBaseUri "ipfs://QmboLkdYkaunVsXDcfVQRKo9wysRk22z4nvvcpvoNbkPX1" \
-  --itemName "Over Open Land"
+  --itemBaseName "Over Open Land"
 
 npx ts-node ./src/cli/controls/addPhase.ts -d 8iHEUGSycmHcCDfBtZgNVgTm5WGgsRaiYxtDpnYMCAzq -k ~/.config/solana/id.json -r https://mainnetbeta-rpc.eclipse.xyz --maxMintsPerWallet 100 --maxMintsTotal 0 --priceAmount 0 -s 1729000800 -e 1729432800
 

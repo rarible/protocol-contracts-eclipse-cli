@@ -1,10 +1,7 @@
-import { Connection, Keypair, PublicKey } from "@solana/web3.js";
+import { Connection, PublicKey } from "@solana/web3.js";
 import { createDeployment } from "../../sdk/controls/createControlDeployment";
-import { LibreWallet } from "../../anchor/LibreWallet";
-import fs from "fs";
 import { Command } from "commander";
 import BN from "bn.js";
-import { LedgerWallet } from "anchor/LedgerWallet";
 import { getWallet } from "anchor/utils";
 
 // Define CLI options
@@ -12,11 +9,11 @@ const cli = new Command();
 
 cli
   .version("1.0.0")
-  .description("Create an editions account with controls")
+  .description("Create an editions account==== with controls")
   .requiredOption("-k, --keypairPath <keypairPath>", "Path to the keypair file")
   .requiredOption("-s, --symbol <symbol>", "Symbol of the edition")
-  .requiredOption("-n, --name <name>", "Name of the edition")
-  .requiredOption("-j, --jsonUrl <jsonUrl>", "JSON URL for metadata")
+  .requiredOption("-n, --collectionName <collectionName>", "Name of the edition")
+  .requiredOption("-u, --collectionUri <collectionUri>", "JSON URL for metadata")
   .requiredOption("-t, --treasuryWallet <treasuryWallet>", "Public key of the treasury wallet")
   .requiredOption("--maxMintsPerWallet <maxMintsPerWallet>", "Max mints per wallet, 0 for unlimited")
   .requiredOption("--maxNumberOfTokens <maxNumberOfTokens>", "Max number of tokens, 0 for unlimited")
@@ -24,24 +21,21 @@ cli
   .requiredOption("--royaltyBasisPoints <royaltyBasisPoints>", "Royalty basis points (1000 = 10%)")
   .option("--extraMeta <extraMeta...>", "Extra metadata in the format '<field>:<value>'")
   .requiredOption("--itemBaseUri <itemBaseUri>", "Base URI for the item metadata")
-  .requiredOption("--itemName <itemName>", "Name for each item in the edition")
+  .requiredOption("--itemBaseName <itemBaseName>", "Name for each item in the edition")
   .option("--cosignerProgramId <cosignerProgramId>", "Optional cosigner program ID (PublicKey)")
   .requiredOption("--platformFeeValue <platformFeeValue>", "Platform fee value (e.g., amount in lamports or basis points)")
   .option("--isFeeFlat", "Indicate if the platform fee is a flat amount")
   .requiredOption("--platformFeeRecipients <platformFeeRecipients...>", "List of platform fee recipients in the format '<address>:<share>'")
   .requiredOption("-r, --rpc <rpc>", "RPC endpoint")
-  .option("--ledger", "if you want to use ledger pass true")
+  .option("--ledger <boolean>", "if you want to use ledger pass true")
   .parse(process.argv);
 
 const opts = cli.opts();
 
 (async () => {
   try {
-    // Setup connection to Solana RPC
     const connection = new Connection(opts.rpc);
-
     const wallet = await getWallet(opts.ledger, opts.keypairPath);
-    console.log("pubkey", wallet.publicKey);
 
     // Parse creators input
     const creators = opts.creators.map((creator: string) => {
@@ -95,9 +89,9 @@ const opts = cli.opts();
     const { editions, editionsControls } = await createDeployment({
       wallet,
       params: {
-        name: opts.name,
         symbol: opts.symbol,
-        jsonUrl: opts.jsonUrl,
+        collectionName: opts.collectionName,
+        collectionUri: opts.collectionUri,
         treasury: opts.treasuryWallet,
         maxMintsPerWallet: +opts.maxMintsPerWallet,
         maxNumberOfTokens: +opts.maxNumberOfTokens,
@@ -105,7 +99,7 @@ const opts = cli.opts();
         platformFee,
         extraMeta,
         itemBaseUri: opts.itemBaseUri,
-        itemName: opts.itemName,
+        itemBaseName: opts.itemBaseName,
         cosignerProgramId,
       },
       connection,

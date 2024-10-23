@@ -22,8 +22,6 @@ cli
 const opts = cli.opts();
 
 (async () => {
-  console.log("test");
-
   const connection = new Connection(opts.rpc);
 
   const keyfile = JSON.parse(fs.readFileSync(opts.keypairPath, "utf8"));
