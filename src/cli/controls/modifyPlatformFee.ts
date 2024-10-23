@@ -57,8 +57,6 @@ const opts = cli.opts();
   const platformFeeValue = new BN(opts.platformFeeValue);
   const isFeeFlat = !!opts.isFeeFlat;
 
-  console.log("Options:", opts);
-
   try {
     // Call modifyPlatformFee function to update platform fee on-chain
     const { editions, txid } = await modifyPlatformFee({

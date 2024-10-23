@@ -70,7 +70,6 @@ export const mint = async ({
     })
   );
 
-  // console.log('LKJHLKJHLKJH', deploymentConfig?.item?.cosignerProgramId?.toString());
   const remainingAccounts: AccountMeta[] = [];
 
   console.log({

@@ -12,10 +12,9 @@ import BN from "bn.js";
 import {
   TOKEN_2022_PROGRAM_ID,
   getAssociatedTokenAddressSync,
-  ASSOCIATED_TOKEN_PROGRAM_ID
+  ASSOCIATED_TOKEN_PROGRAM_ID,
 } from "spl-token-4";
 import { getProgramInstanceEditions } from "../../anchor/editions/getProgramInstanceEditions";
-import { getEditionsPda } from "../../anchor/editions/pdas/getEditionsPda";
 import { IExecutorParams } from "../../cli/IExecutorParams";
 import { sendSignedTransaction } from "../tx_utils";
 import { getHashlistPda } from "../../anchor/editions/pdas/getHashlistPda";
@@ -32,6 +31,10 @@ export interface IMintWithControls {
   phaseIndex: number;
   editionsId: string;
   numberOfMints: number;
+  merkleProof?: number[][];
+  allowListPrice?: number;
+  allowListMaxClaims?: number;
+  isAllowListMint: boolean;
 }
 
 const MAX_MINTS_PER_TRANSACTION = 3;
@@ -41,10 +44,17 @@ export const mintWithControls = async ({
   params,
   connection,
 }: IExecutorParams<IMintWithControls>) => {
-  const { phaseIndex, editionsId, numberOfMints } = params;
+  const {
+    phaseIndex,
+    editionsId,
+    numberOfMints,
+    merkleProof,
+    allowListPrice,
+    allowListMaxClaims,
+    isAllowListMint,
+  } = params;
 
-  const editionsControlsProgram =
-    getProgramInstanceEditionsControls(connection);
+  const editionsControlsProgram = getProgramInstanceEditionsControls(connection);
 
   const editions = new PublicKey(editionsId);
 
@@ -56,16 +66,11 @@ export const mintWithControls = async ({
 
   const libreplexEditionsProgram = getProgramInstanceEditions(connection);
 
-  const editionsObj = decodeEditions(libreplexEditionsProgram)(
-    editionsData.data,
-    editions
-  );
+  const editionsObj = decodeEditions(libreplexEditionsProgram)(editionsData.data, editions);
 
   const editionsControlsPda = getEditionsControlsPda(editions);
 
-  const editionsControlsData = await connection.getAccountInfo(
-    editionsControlsPda
-  );
+  const editionsControlsData = await connection.getAccountInfo(editionsControlsPda);
 
   const editionsControlsObj = decodeEditionsControls(editionsControlsProgram)(
     editionsControlsData.data,
@@ -76,11 +81,7 @@ export const mintWithControls = async ({
 
   const minterStats = getMinterStatsPda(editions, wallet.publicKey)[0];
 
-  const minterStatsPhase = getMinterStatsPhasePda(
-    editions,
-    wallet.publicKey,
-    phaseIndex
-  )[0];
+  const minterStatsPhase = getMinterStatsPhasePda(editions, wallet.publicKey, phaseIndex)[0];
 
   let remainingMints = numberOfMints;
 
@@ -113,13 +114,15 @@ export const mintWithControls = async ({
         TOKEN_2022_PROGRAM_ID
       );
 
-      console.log("platformFeeRecipients", JSON.stringify(editionsControlsObj.item.platformFeeRecipients));
       const hashlistMarker = getHashlistMarkerPda(editions, mint.publicKey)[0];
 
       instructions.push(
         await editionsControlsProgram.methods
           .mintWithControls({
             phaseIndex,
+            merkleProof: isAllowListMint ? merkleProof : null,
+            allowListPrice: isAllowListMint ? new BN(allowListPrice) : null,
+            allowListMaxClaims: isAllowListMint ? new BN(allowListMaxClaims) : null,
           })
           .accountsStrict({
             editionsDeployment: editions,
@@ -162,7 +165,7 @@ export const mintWithControls = async ({
 
   await wallet.signAllTransactions(txs);
 
-  const promises = txs.map((item) =>
+  const promises = txs.map(item =>
     sendSignedTransaction({
       signedTransaction: item,
       connection,
@@ -171,6 +174,8 @@ export const mintWithControls = async ({
   );
 
   await Promise.all(promises);
+
+  console.log("Minting successful.");
 
   return { editions, editionsControls: editionsControlsPda };
 };

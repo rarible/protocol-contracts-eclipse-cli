@@ -55,7 +55,7 @@ import { getEditionsControlsPda } from "anchor/controls/pdas/getEditionsControls
     );
 
     const updatesForTx = Math.min(MAX_UPDATES_PER_TRANSACTION, remainingUpdates);
-    console.log("wallet.pubkey", wallet.pubkey)
+
     let creators_to_push = []
     for (let i = 0; i < updatesForTx; i++) {
       const creator = creators[i];

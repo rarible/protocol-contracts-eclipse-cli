@@ -38,7 +38,7 @@ const abbreviateNumber = (
             ? Math.log10(numeratorAbsValue / Number(denominator)) / 3
             : log10(numeratorAbsValue / BigInt(denominator)) / 3
         );
-  // console.log({ numerator, denominator, tier });
+
   const suffix = SI_SYMBOL[tier];
   const scale = tier > 0 ? 10 ** (tier * 3) : 1;
 

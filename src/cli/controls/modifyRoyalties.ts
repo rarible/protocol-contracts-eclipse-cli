@@ -36,8 +36,6 @@ const opts = cli.opts();
     return { address: new PublicKey(address), share: Number(share) };
   });
 
-  console.log("Options:", opts);
-
   try {
     // Call modifyRoyalties function to update royalties on-chain
     const { editions } = await modifyRoyalties({

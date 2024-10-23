@@ -1,5 +1,4 @@
 import {
-  Connection,
   Keypair,
   SystemProgram,
   Transaction,
@@ -43,16 +42,16 @@ export interface UpdatePlatformFeeArgs {
 
 export interface IInitializeLaunch {
   symbol: string;
-  jsonUrl: string;
+  collectionUri: string;
   treasury: string;
-  name: string;
+  collectionName: string;
   maxMintsPerWallet: number; // set to 0 for unlimited
   maxNumberOfTokens: number; // set to 0 for unlimited
   royalties: UpdateRoyaltiesArgs; // royalties info (basis points and creators)
   platformFee: UpdatePlatformFeeArgs; // platform fee info
   extraMeta: MetadataField[]; // array of extra metadata fields
   itemBaseUri: string; // URI for item base metadata
-  itemName: string; // Name for each item
+  itemBaseName: string; // Name for each item
   cosignerProgramId?: PublicKey | null; // Optional cosigner program
 }
 
@@ -63,16 +62,16 @@ export const createDeployment = async ({
 }: IExecutorParams<IInitializeLaunch>) => {
   const {
     symbol,
-    jsonUrl,
+    collectionUri,
     treasury,
     maxMintsPerWallet,
     maxNumberOfTokens,
-    name,
+    collectionName,
     royalties,
     platformFee, // Destructure platformFee from params
     extraMeta,
     itemBaseUri,
-    itemName,
+    itemBaseName,
     cosignerProgramId,
   } = params;
 
@@ -123,14 +122,14 @@ export const createDeployment = async ({
         treasury: new PublicKey(treasury),
         maxNumberOfTokens: new BN(maxNumberOfTokens),
         symbol,
-        name,
-        offchainUrl: jsonUrl,
+        collectionName,
+        collectionUri,
         cosignerProgramId: cosignerProgramId ?? null,
         royalties: royaltiesArgs,
         platformFee: platformFeeArgs, // Pass the platform fee arguments
         extraMeta,
         itemBaseUri,
-        itemName,
+        itemBaseName,
       })
       .accountsStrict({
         editionsControls,

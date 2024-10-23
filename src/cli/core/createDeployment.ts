@@ -14,7 +14,7 @@ cli
   .description("Add node id to the database")
   .requiredOption("-k, --keypairPath <keypairPath>", "Keypair")
   .requiredOption("-s, --symbol <symbol>", "Symbol")
-  .requiredOption("-j, --jsonUrl <jsonUrl>", "Json URL")
+  .requiredOption("-u, --jsonUrl <jsonUrl>", "Json URL")
   .requiredOption("-r, --rpc <rpc>", "RPC")
   .option("-n, --name <name>", "Name")
   .option("-mt, --maxTokens <maxTokens>", "Max tokens")

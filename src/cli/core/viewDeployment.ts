@@ -10,6 +10,7 @@ import { getProgramInstanceEditions } from "anchor/editions/getProgramInstanceEd
 import { getEditionsControlsPda } from "anchor/controls/pdas/getEditionsControlsPda";
 import { decodeEditionsControls } from "anchor/controls/accounts";
 import { getProgramInstanceEditionsControls } from "anchor/controls/getProgramInstanceEditionsControls";
+import { getTokenMetadata } from "spl-token-4";
 
 const cli = new Command();
 
@@ -18,9 +19,7 @@ cli
   .description("Add node id to the database")
   .requiredOption("-r, --rpc <rpc>", "RPC")
   .requiredOption("-i, --deploymentId <deploymentId>", "deployment ID")
-
   .parse(process.argv);
-// get all fair launches
 
 const opts = cli.opts();
 
@@ -38,16 +37,14 @@ const opts = cli.opts();
     const deploymentObj = decodeEditions(editionProgram)(accountData.data, deploymentPubkey);
 
     console.log({
-      coreDeployment: {
+      Editions: {
+        symbol: deploymentObj.item.symbol,
         creator: deploymentObj.item.creator.toBase58(),
         groupMint: deploymentObj.item.groupMint.toBase58(),
         maxNumberOfTokens: Number(deploymentObj.item.maxNumberOfTokens),
-        name: deploymentObj.item.name,
         tokensMinted: Number(deploymentObj.item.numberOfTokensIssued),
-        offchainUrl: deploymentObj.item.offchainUrl,
-        symbol: deploymentObj.item.symbol,
-        nameIsTemplate: deploymentObj.item.nameIsTemplate,
-        urlIsTemplate: deploymentObj.item.urlIsTemplate,
+        itemNameIsTemplate: deploymentObj.item.itemNameIsTemplate,
+        itemUriIsTemplate: deploymentObj.item.itemUriIsTemplate,
       },
     });
 
@@ -64,22 +61,40 @@ const opts = cli.opts();
       );
 
       console.log({
-        editionsControls: {
+        EditionsControls: {
           address: editionsControls.toBase58(),
           coreDeployment: editionsControlsObj.item.editionsDeployment.toBase58(),
           creator: editionsControlsObj.item.creator.toBase58(),
           treasury: editionsControlsObj.item.treasury.toBase58(),
-
-          phases: editionsControlsObj.item.phases.map((item, idx) => ({
-            phaseIndex: idx,
-            currentMints: Number(item.currentMints),
-            startTime: Number(item.startTime),
-            endTime: Number(item.endTime),
-            priceAmount: Number(item.priceAmount),
-          })),
+          maxMintsPerWallet: Number(editionsControlsObj.item.maxMintsPerWallet),
         },
+        phases: editionsControlsObj.item.phases.map((item, idx) => ({
+          phaseIndex: idx,
+          currentMints: Number(item.currentMints),
+          maxMintsPerWallet: Number(item.maxMintsPerWallet),
+          maxMintsTotal: Number(item.maxMintsTotal),
+          startTime: Number(item.startTime),
+          endTime: Number(item.endTime),
+          priceAmount: Number(item.priceAmount),
+          priceToken: item.priceToken ? item.priceToken.toBase58() : null,
+          merkleRoot: item.merkleRoot ? JSON.stringify(item.merkleRoot) : null,
+          isPrivate: item.isPrivate ? true : false
+        })),
       });
     }
+
+    const tokenMetadata = await getTokenMetadata(connection, deploymentObj.item.groupMint);
+    console.log({
+      "TokenMetadata": {
+        name: tokenMetadata.name,
+        symbol: tokenMetadata.symbol,
+        uri: tokenMetadata.uri,
+        updateAuthority: tokenMetadata.updateAuthority.toBase58(),
+        mint: tokenMetadata.mint.toBase58(),
+        aditionalMetadata: tokenMetadata.additionalMetadata ? JSON.stringify(tokenMetadata.additionalMetadata) : null
+      }
+    });
+  
   } catch (e) {
     console.log({ e });
   }
