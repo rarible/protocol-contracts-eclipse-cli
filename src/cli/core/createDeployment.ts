@@ -5,7 +5,7 @@ import { createDeployment } from "../../sdk/editions/createDeployment";
 import { Wallet as AnchorWallet, Program } from "@coral-xyz/anchor";
 import fs from "fs";
 import { Command } from "commander";
-import { LibreWallet } from "../../anchor/LibreWallet";
+import { PrivateKeyWallet } from "../../anchor/PrivateKeyWallet";
 
 const cli = new Command();
 
@@ -31,7 +31,7 @@ const opts = cli.opts();
   const keyfile = JSON.parse(fs.readFileSync(opts.keypairPath, "utf8"));
 
   const signerKeypair = Keypair.fromSecretKey(new Uint8Array(keyfile));
-  const wallet = new LibreWallet(signerKeypair);
+  const wallet = new PrivateKeyWallet(signerKeypair);
 
   try {
     const {editionsPda} = await createDeployment({

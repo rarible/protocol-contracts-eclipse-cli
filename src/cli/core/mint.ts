@@ -6,7 +6,7 @@ import { Command } from "commander";
 import { mint } from "../../sdk/editions/mint";
 import { decodeEditions } from "../../anchor/editions/accounts";
 import { getProgramInstanceEditions } from "../../anchor/editions/getProgramInstanceEditions";
-import { LibreWallet } from "../../anchor/LibreWallet";
+import { PrivateKeyWallet } from "../../anchor/PrivateKeyWallet";
 
 const cli = new Command();
 
@@ -51,7 +51,7 @@ const opts = cli.opts();
     console.log(`Signing as ${signerKeypair.publicKey.toBase58()}`);
 
     await mint({
-      wallet: new LibreWallet(signerKeypair),
+      wallet: new PrivateKeyWallet(signerKeypair),
       params: {
         editions: {
           item: editions.item!,

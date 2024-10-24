@@ -64,9 +64,9 @@ export const mintWithControls = async ({
     throw Error("Editions not found");
   }
 
-  const libreplexEditionsProgram = getProgramInstanceEditions(connection);
+  const raribleEditionsProgram = getProgramInstanceEditions(connection);
 
-  const editionsObj = decodeEditions(libreplexEditionsProgram)(editionsData.data, editions);
+  const editionsObj = decodeEditions(raribleEditionsProgram)(editionsData.data, editions);
 
   const editionsControlsPda = getEditionsControlsPda(editions);
 
@@ -144,7 +144,7 @@ export const mintWithControls = async ({
             treasury: editionsControlsObj.item.treasury,
             systemProgram: SystemProgram.programId,
             tokenProgram: TOKEN_2022_PROGRAM_ID,
-            libreplexEditionsProgram: libreplexEditionsProgram.programId,
+            raribleEditionsProgram: raribleEditionsProgram.programId,
             associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
             
           })

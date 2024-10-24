@@ -4,9 +4,9 @@ import { BorshCoder, Program } from "@coral-xyz/anchor";
 import { Connection, PublicKey } from "@solana/web3.js";
 
 
-import { LibreplexEditionsControls } from "./libreplex_editions_controls";
+import { RaribleEditionsControls } from "./rarible_editions_controls";
 
-export type EditionsControls = IdlAccounts<LibreplexEditionsControls>["editionsControls"];
+export type EditionsControls = IdlAccounts<RaribleEditionsControls>["editionsControls"];
 
 export const getBase64FromDatabytes = (dataBytes: Buffer, dataType: string) => {
   const base = dataBytes.toString("base64");
@@ -14,7 +14,7 @@ export const getBase64FromDatabytes = (dataBytes: Buffer, dataType: string) => {
 };
 
 export const decodeEditionsControls =
-  (program: Program<LibreplexEditionsControls>) =>
+  (program: Program<RaribleEditionsControls>) =>
   (buffer: Buffer | undefined, pubkey: PublicKey) => {
     const coder = new BorshCoder(program.idl);
     const liquidity = buffer

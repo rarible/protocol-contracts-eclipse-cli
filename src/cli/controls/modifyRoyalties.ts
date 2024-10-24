@@ -2,7 +2,7 @@ export {};
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { Command } from "commander";
 import fs from "fs";
-import { LibreWallet } from "../../anchor/LibreWallet";
+import { PrivateKeyWallet } from "../../anchor/PrivateKeyWallet";
 import { modifyRoyalties } from "../../sdk/controls/modifyRoyalties"; // Assuming your modifyRoyalties script is located here
 import { getWallet } from "anchor/utils";
 

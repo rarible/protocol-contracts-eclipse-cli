@@ -30,7 +30,7 @@ import { getEditionsControlsPda } from "anchor/controls/pdas/getEditionsControls
   }: IExecutorParams<IModifyRoyalties>) => {
     const { editionsId, royaltyBasisPoints, creators } = params;
   
-    const libreplexEditionsProgram = getProgramInstanceEditions(connection);
+    const raribleEditionsProgram = getProgramInstanceEditions(connection);
     const editionsControlsProgram = getProgramInstanceEditionsControls(connection);
 
     const editions = new PublicKey(editionsId);
@@ -40,7 +40,7 @@ import { getEditionsControlsPda } from "anchor/controls/pdas/getEditionsControls
       throw Error("Editions not found");
     }
   
-    const editionsObj = await libreplexEditionsProgram.account.editionsDeployment.fetch(editions);
+    const editionsObj = await raribleEditionsProgram.account.editionsDeployment.fetch(editions);
   
     let remainingUpdates = creators.length;
     let txs: Transaction[] = [];
@@ -76,7 +76,7 @@ import { getEditionsControlsPda } from "anchor/controls/pdas/getEditionsControls
           systemProgram: SystemProgram.programId,
           tokenProgram: TOKEN_2022_PROGRAM_ID,
           creator: wallet.publicKey,
-          libreplexEditionsProgram: libreplexEditionsProgram.programId
+          raribleEditionsProgram: raribleEditionsProgram.programId
         })
         .signers([])
         .instruction()

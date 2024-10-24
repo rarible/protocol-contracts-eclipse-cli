@@ -4,7 +4,7 @@ import { Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { createDeployment } from "sdk/editions/createDeployment";
 import fs from "fs";
 import { Command } from "commander";
-import { LibreWallet } from "anchor/LibreWallet";
+import { PrivateKeyWallet } from "anchor/PrivateKeyWallet";
 import { decodeEditions } from "anchor/editions/accounts";
 import { getProgramInstanceEditions } from "anchor/editions/getProgramInstanceEditions";
 import { getEditionsControlsPda } from "anchor/controls/pdas/getEditionsControlsPda";
