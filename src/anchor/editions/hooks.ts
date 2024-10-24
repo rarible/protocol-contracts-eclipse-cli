@@ -5,12 +5,12 @@ import { Connection, PublicKey } from "@solana/web3.js";
 import { useContext, useEffect, useMemo } from "react";
 import { useFetchSingleAccount } from "utils/singleAccountInfo";
 import { decodeEditions } from "./accounts";
-import { LibreplexEditions } from "./libreplex_editions";
+import { RaribleEditions } from "./rarible_editions";
 import { EditionsProgramContext } from "./EditionsProgramContext";
 
-export type EditionsDeployment  = IdlAccounts<LibreplexEditions>["editionsDeployment"];
-export type Hashlist = IdlAccounts<LibreplexEditions>["hashlist"];
-export type HashlistMarker = IdlAccounts<LibreplexEditions>["hashlistMarker"];
+export type EditionsDeployment  = IdlAccounts<RaribleEditions>["editionsDeployment"];
+export type Hashlist = IdlAccounts<RaribleEditions>["hashlist"];
+export type HashlistMarker = IdlAccounts<RaribleEditions>["hashlistMarker"];
 
 export const useEditionsById = (
   deploymentId: PublicKey | null,
@@ -42,7 +42,7 @@ export const useEditionsById = (
 
 
 export const decodeHashlistMarker =
-  (program: Program<LibreplexEditions>) =>
+  (program: Program<RaribleEditions>) =>
   (buffer: Buffer | undefined, pubkey: PublicKey) => {
     const coder = new BorshCoder(program.idl);
     const inscription = buffer
@@ -57,7 +57,7 @@ export const decodeHashlistMarker =
 
 
 export const decodeHashlist =
-  (program: Program<LibreplexEditions>) =>
+  (program: Program<RaribleEditions>) =>
   (buffer: Buffer | undefined, pubkey: PublicKey) => {
     const coder = new BorshCoder(program.idl);
     const inscription = buffer

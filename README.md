@@ -1,12 +1,12 @@
 
 # Sample editions cli
 
-libreplex_editions allows the creation of open editions (copies of identical mints). the core program does not allow whitelists / creator fees. Both WL and creator fees are added via a separate wrapper contract.
+rarible_editions allows the creation of open editions (copies of identical mints). the core program does not allow whitelists / creator fees. Both WL and creator fees are added via a separate wrapper contract.
 
 
 ## Getting Started
 
-It is highly recommended you check out libreplex_program_library (especially libreplex_editions for the rust source code).
+It is highly recommended you check out rarible_program_library (especially rarible_editions for the rust source code).
 
 ## Installation
 

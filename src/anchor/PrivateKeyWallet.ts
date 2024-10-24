@@ -2,7 +2,7 @@ import { Wallet as AnchorWallet } from "@coral-xyz/anchor";
 import { Keypair, PublicKey } from "@solana/web3.js";
 
 
-export class LibreWallet implements AnchorWallet {
+export class PrivateKeyWallet implements AnchorWallet {
   constructor(readonly payer: Keypair) {
     this.payer = payer;
   }

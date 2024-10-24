@@ -42,7 +42,7 @@ export const addPhase = async ({
 
   const editionProgram = getProgramInstanceEditionsControls(connection);
 
-  const libreplexEditionsProgram = getProgramInstanceEditions(connection);
+  const raribleEditionsProgram = getProgramInstanceEditions(connection);
 
   const instructions: TransactionInstruction[] = [];
 
@@ -69,7 +69,7 @@ export const addPhase = async ({
         payer: wallet.publicKey,
         systemProgram: SystemProgram.programId,
         tokenProgram: TOKEN_2022_PROGRAM_ID,
-        libreplexEditionsProgram: libreplexEditionsProgram.programId
+        raribleEditionsProgram: raribleEditionsProgram.programId
       })
       .signers([])
       .instruction()

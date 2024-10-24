@@ -28,7 +28,7 @@ import {
   }: IExecutorParams<IModifyPlatformFee>) => {
     const { editionsId, platformFeeValue, isFeeFlat, recipients } = params;
   
-    const libreplexEditionsProgram = getProgramInstanceEditions(connection);
+    const raribleEditionsProgram = getProgramInstanceEditions(connection);
     const editionsControlsProgram = getProgramInstanceEditionsControls(connection);
   
     const editions = new PublicKey(editionsId);
@@ -39,7 +39,7 @@ import {
       throw Error("Editions not found");
     }
   
-    const editionsObj = await libreplexEditionsProgram.account.editionsDeployment.fetch(editions);
+    const editionsObj = await raribleEditionsProgram.account.editionsDeployment.fetch(editions);
   
     // Create the instruction to modify the platform fee
     const instruction = await editionsControlsProgram.methods

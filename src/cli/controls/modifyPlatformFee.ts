@@ -3,7 +3,7 @@
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { Command } from "commander";
 import fs from "fs";
-import { LibreWallet } from "../../anchor/LibreWallet";
+import { PrivateKeyWallet } from "../../anchor/PrivateKeyWallet";
 import { modifyPlatformFee } from "../../sdk/controls/modifyPlatformFee"; // Assuming your modifyPlatformFee script is located here
 import BN from "bn.js";
 import { getWallet } from "anchor/utils";

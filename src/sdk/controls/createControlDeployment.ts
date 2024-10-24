@@ -86,7 +86,7 @@ export const createDeployment = async ({
 
   const hashlist = getHashlistPda(editions)[0];
 
-  const libreplexEditionsProgram = getProgramInstanceEditions(connection);
+  const raribleEditionsProgram = getProgramInstanceEditions(connection);
   const instructions: TransactionInstruction[] = [];
 
   // Ensure creators' addresses are PublicKey instances for royalties
@@ -141,7 +141,7 @@ export const createDeployment = async ({
         group: group.publicKey,
         systemProgram: SystemProgram.programId,
         tokenProgram: TOKEN_2022_PROGRAM_ID,
-        libreplexEditionsProgram: libreplexEditionsProgram.programId,
+        raribleEditionsProgram: raribleEditionsProgram.programId,
         groupExtensionProgram: PROGRAM_ID_GROUP_EXTENSIONS,
       })
       .signers([groupMint, group])

@@ -7,12 +7,12 @@ import { Keypair, PublicKey } from "@solana/web3.js";
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { PROGRAM_ID_EDITIONS } from "./constants";
 import { PROGRAM_ID } from "@metaplex-foundation/mpl-token-metadata";
-import { LibreplexEditions } from "./libreplex_editions";
+import { RaribleEditions } from "./rarible_editions";
 import { getProgramInstanceEditions } from "./getProgramInstanceEditions";
-import { LibreWallet } from "anchor/fair_launch/LibreWallet";
+import { PrivateKeyWallet } from "anchor/fair_launch/PrivateKeyWallet";
 
 export const EditionsProgramContext = createContext<{
-  program: Program<LibreplexEditions>;
+  program: Program<RaribleEditions>;
   setProgramId: (p: PublicKey) => any;
 }>(undefined!);
 
@@ -23,7 +23,7 @@ export const EditionsProgramProvider = ({
 }) => {
   const wallet = useWallet();
 
-  const [program, setProgram] = useState<Program<LibreplexEditions>>();
+  const [program, setProgram] = useState<Program<RaribleEditions>>();
 
   const [programId, setProgramId] = useState<PublicKey>(
     new PublicKey(PROGRAM_ID_EDITIONS)
@@ -35,7 +35,7 @@ export const EditionsProgramProvider = ({
     try {
       const _program = getProgramInstanceEditions(
         connection,
-        new LibreWallet(Keypair.generate())
+        new PrivateKeyWallet(Keypair.generate())
       );
       setProgram(_program);
     } catch (e) {
