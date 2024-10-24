@@ -1,1 +1,1 @@
-export const PROGRAM_ID_EDITIONS = "A927QYSgP2fJWWDJn1gZknSfsMXyyKnJvMf2kJoY5yeQ"
+export const PROGRAM_ID_EDITIONS = "bYSF2fxhcUjvqapf1c9VYmykH8CpySMPvCvxgFkfSSW"

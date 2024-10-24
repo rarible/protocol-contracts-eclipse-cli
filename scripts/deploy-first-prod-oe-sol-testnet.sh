@@ -5,7 +5,7 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   -s CAT2 \
   --maxNumberOfTokens 1000 \
   --maxMintsPerWallet 100 \
-  -j "ipfs://QmfJh4B8KySR1KHaXRNWkcDBn67ZuJkzAyaVCWAS8Kcezc/0" \
+  -u "ipfs://QmfJh4B8KySR1KHaXRNWkcDBn67ZuJkzAyaVCWAS8Kcezc/0" \
   -n "Collection of Cats" \
   --creators J5xffSinbAQw65TsphSZ8gfaNGAPEfNWL9wwzGNdm3PR:100 \
   --royaltyBasisPoints 1000 \
@@ -14,9 +14,9 @@ npx ts-node ./src/cli/controls/createDeployment.ts \
   --isFeeFlat \
   --extraMeta "type:handmade" "author:Vadim" "value:important" \
   --itemBaseUri "ipfs://QmdHaufjUDJgbZzZ4eFCjtJQyeQpuNwoEvqLm5rq159vC8/{}" \
-  --itemName "Cat #{}" 
+  --itemBaseName "Cat #{}" 
 
 
-npx ts-node ./src/cli/controls/addPhase.ts -d 9z4yjvADg6SAwZUoJsmwqsepFptUr5zEdaQyjUKhevr5 -k ~/.config/solana/id.json -r https://api.devnet.solana.com --maxMintsPerWallet 100 --maxMintsTotal 1000 --priceAmount 500 -s 1709564319 -e 1959564319
+npx ts-node ./src/cli/controls/addPhase.ts -d D4W923tv5rGnAzBXeAEBxrkzsffuwewndibgE69J485M -k ~/.config/solana/id.json -r https://api.devnet.solana.com --maxMintsPerWallet 100 --maxMintsTotal 1000 --priceAmount 500 -s 1709564319 -e 1959564319
 
-npx ts-node ./src/cli/controls/mintWithControls.ts -d 9z4yjvADg6SAwZUoJsmwqsepFptUr5zEdaQyjUKhevr5 -k ~/.config/solana/id.json -r https://api.devnet.solana.com -p 0 -n 1
+npx ts-node ./src/cli/controls/mintWithControls.ts -d D4W923tv5rGnAzBXeAEBxrkzsffuwewndibgE69J485M -k ~/.config/solana/id.json -r https://api.devnet.solana.com -p 0 -n 1
